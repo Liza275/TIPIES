@@ -16,5 +16,11 @@ namespace TIPIESProj
         {
             InitializeComponent();
         }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            Divisions newForm = new Divisions();
+            newForm.Show();
+        }
     }
 }

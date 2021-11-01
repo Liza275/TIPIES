@@ -16,5 +16,11 @@ namespace TIPIESProj
         {
             InitializeComponent();
         }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Products newForm = new Products();
+            newForm.Show();
+        }
     }
 }

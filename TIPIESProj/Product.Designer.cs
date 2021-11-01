@@ -76,6 +76,7 @@ namespace TIPIESProj
             this.buttonClose.TabIndex = 4;
             this.buttonClose.Text = "Добавить";
             this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // Product
             // 

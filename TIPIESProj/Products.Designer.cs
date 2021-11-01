@@ -39,11 +39,16 @@ namespace TIPIESProj
             // 
             // dataGridViewProducts
             // 
+            this.dataGridViewProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProducts.Location = new System.Drawing.Point(-2, -2);
+            this.dataGridViewProducts.MultiSelect = false;
             this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.ReadOnly = true;
+            this.dataGridViewProducts.RowHeadersVisible = false;
             this.dataGridViewProducts.RowHeadersWidth = 51;
             this.dataGridViewProducts.RowTemplate.Height = 24;
+            this.dataGridViewProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProducts.Size = new System.Drawing.Size(597, 450);
             this.dataGridViewProducts.TabIndex = 0;
             // 
@@ -55,6 +60,7 @@ namespace TIPIESProj
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonUpdate
             // 
@@ -64,6 +70,7 @@ namespace TIPIESProj
             this.buttonUpdate.TabIndex = 2;
             this.buttonUpdate.Text = "Изменить";
             this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonDel
             // 
