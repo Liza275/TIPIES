@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TIPIESProj.DataBase.Models;
+using TIPIESProj.DataBase.Services.Mappers;
 
 namespace TIPIESProj.DataBase.Services
 {
     public class TransactionLogStorage
     {
-        private static readonly Mapper _mapper = MapperConfig.GetMapper<TransactionLog>();
+        private static readonly Mapper _mapper = new MapperConfig().GetMapper<TransactionLog>();
 
         public static void Add(TransactionLog model)
         {
@@ -61,6 +60,14 @@ namespace TIPIESProj.DataBase.Services
             using (var db = new ChartDB())
             {
                 return db.TransactionLogs.FirstOrDefault(rec => rec.Id == id);
+            }
+        }
+
+        public static List<TransactionLog> GetAll()
+        {
+            using (var db = new ChartDB())
+            {
+                return db.TransactionLogs.ToList();
             }
         }
     }

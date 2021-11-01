@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using TIPIESProj.DataBase.Models;
 
 namespace TIPIESProj.DataBase

@@ -1,16 +1,12 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TIPIESProj.DataBase.Models;
+using TIPIESProj.DataBase.Services.Mappers;
 
 namespace TIPIESProj.DataBase.Services
 {
     public class BuyerStorage
-    {
-        private static readonly Mapper _mapper = MapperConfig.GetMapper<Buyer>();
-
+    {        
         public static void Add(Buyer model)
         {
             using (var db = new ChartDB())
@@ -34,7 +30,7 @@ namespace TIPIESProj.DataBase.Services
                 if (elem != null)
                 {
                     var id = elem.Id;
-                    elem = _mapper.Map<Buyer>(model);
+                    new MapperConfig().GetMapper<Buyer>().Map<Buyer, Buyer>(model, elem);
                     elem.Id = id;
 
                     db.SaveChanges();
@@ -61,6 +57,14 @@ namespace TIPIESProj.DataBase.Services
             using (var db = new ChartDB())
             {
                 return db.Buyers.FirstOrDefault(rec => rec.Id == id);
+            }
+        }
+
+        public static List<Buyer> GetAll()
+        {
+            using (var db = new ChartDB())
+            {
+                return db.Buyers.ToList();
             }
         }
     }

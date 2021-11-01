@@ -1,15 +1,13 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TIPIESProj.DataBase.Models;
+using TIPIESProj.DataBase.Services.Mappers;
 
 namespace TIPIESProj.DataBase.Services
 {
     public class CharOfAccountsStorage
     {
-        private static readonly Mapper _mapper = MapperConfig.GetMapper<ChartOfAccounts>();
+        //private static readonly Mapper _mapper = new MapperConfig().GetMapper<ChartOfAccounts>();
 
         public static void Add(ChartOfAccounts model)
         {
@@ -34,7 +32,7 @@ namespace TIPIESProj.DataBase.Services
                 if (elem != null)
                 {
                     var id = elem.Id;
-                    elem = _mapper.Map<ChartOfAccounts>(model);
+                    elem = new MapperConfig().GetMapper<ChartOfAccounts>().Map<ChartOfAccounts>(model);
                     elem.Id = id;
 
                     db.SaveChanges();
@@ -61,6 +59,14 @@ namespace TIPIESProj.DataBase.Services
             using (var db = new ChartDB())
             {
                 return db.ChartOfAccounts.FirstOrDefault(rec => rec.Id == id);
+            }
+        }
+
+        public static List<ChartOfAccounts> GetAll()
+        {
+            using (var db = new ChartDB())
+            {
+                return db.ChartOfAccounts.ToList();
             }
         }
     }

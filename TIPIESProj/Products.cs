@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TIPIESProj.DataBase.Services;
 
 namespace TIPIESProj
 {
@@ -15,18 +9,27 @@ namespace TIPIESProj
         public Products()
         {
             InitializeComponent();
+            dataGridViewProducts.DataSource = ProductStorage.GetAll();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            Product newForm = new Product();
+            Product newForm = new Product(null, dataGridViewProducts);
             newForm.Show();
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            Product newForm = new Product();
+            var selected = (int)dataGridViewProducts.SelectedRows[0].Cells["Id"].Value;
+            Product newForm = new Product(ProductStorage.Get(selected), dataGridViewProducts);
             newForm.Show();
+        }
+
+        private void buttonDel_Click(object sender, EventArgs e)
+        {
+            var selected = (int)dataGridViewProducts.SelectedRows[0].Cells["Id"].Value;
+            ProductStorage.Delete(selected);
+            dataGridViewProducts.DataSource = ProductStorage.GetAll();
         }
     }
 }

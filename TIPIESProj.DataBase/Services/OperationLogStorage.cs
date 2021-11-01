@@ -1,16 +1,11 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TIPIESProj.DataBase.Models;
 
 namespace TIPIESProj.DataBase.Services
 {
     public class OperationLogStorage
-    {
-        private static readonly Mapper _mapper = MapperConfig.GetMapper<OperationLog>();
-
+    {       
         public static void Add(OperationLog model)
         {
             using (var db = new ChartDB())
@@ -34,7 +29,7 @@ namespace TIPIESProj.DataBase.Services
                 if (elem != null)
                 {
                     var id = elem.Id;
-                    elem = _mapper.Map<OperationLog>(model);
+                    //elem = _mapper.Map<OperationLog>(model);
                     elem.Id = id;
 
                     db.SaveChanges();
@@ -61,6 +56,14 @@ namespace TIPIESProj.DataBase.Services
             using (var db = new ChartDB())
             {
                 return db.OperationLogs.FirstOrDefault(rec => rec.Id == id);
+            }
+        }
+
+        public static List<OperationLog> GetAll()
+        {
+            using (var db = new ChartDB())
+            {
+                return db.OperationLogs.ToList();
             }
         }
     }

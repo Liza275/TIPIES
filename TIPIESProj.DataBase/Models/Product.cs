@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TIPIESProj.DataBase.Models
 {
@@ -14,7 +11,5 @@ namespace TIPIESProj.DataBase.Models
 
         [Required]
         public decimal PlannedCostPrice { get; set; }
-
-        public int ProductTypeId { get; set; }
     }
 }

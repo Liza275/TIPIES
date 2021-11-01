@@ -42,6 +42,7 @@ namespace TIPIESProj
             this.dataGridViewBuyers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewBuyers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBuyers.Location = new System.Drawing.Point(0, 1);
+            this.dataGridViewBuyers.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewBuyers.MultiSelect = false;
             this.dataGridViewBuyers.Name = "dataGridViewBuyers";
             this.dataGridViewBuyers.ReadOnly = true;
@@ -49,14 +50,15 @@ namespace TIPIESProj
             this.dataGridViewBuyers.RowHeadersWidth = 51;
             this.dataGridViewBuyers.RowTemplate.Height = 24;
             this.dataGridViewBuyers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewBuyers.Size = new System.Drawing.Size(632, 447);
+            this.dataGridViewBuyers.Size = new System.Drawing.Size(474, 363);
             this.dataGridViewBuyers.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(655, 58);
+            this.buttonAdd.Location = new System.Drawing.Point(491, 47);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(134, 37);
+            this.buttonAdd.Size = new System.Drawing.Size(100, 30);
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -64,9 +66,10 @@ namespace TIPIESProj
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(654, 127);
+            this.buttonUpdate.Location = new System.Drawing.Point(490, 103);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(134, 37);
+            this.buttonUpdate.Size = new System.Drawing.Size(100, 30);
             this.buttonUpdate.TabIndex = 2;
             this.buttonUpdate.Text = "Изменить";
             this.buttonUpdate.UseVisualStyleBackColor = true;
@@ -74,32 +77,36 @@ namespace TIPIESProj
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(654, 203);
+            this.buttonDel.Location = new System.Drawing.Point(490, 165);
+            this.buttonDel.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(134, 37);
+            this.buttonDel.Size = new System.Drawing.Size(100, 30);
             this.buttonDel.TabIndex = 3;
             this.buttonDel.Text = "Удалить";
             this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(655, 269);
+            this.buttonBack.Location = new System.Drawing.Point(491, 219);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(2);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(134, 37);
+            this.buttonBack.Size = new System.Drawing.Size(100, 30);
             this.buttonBack.TabIndex = 4;
             this.buttonBack.Text = "Назад";
             this.buttonBack.UseVisualStyleBackColor = true;
             // 
             // Buyers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridViewBuyers);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Buyers";
             this.Text = "Buyers";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuyers)).EndInit();

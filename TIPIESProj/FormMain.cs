@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TIPIESProj
@@ -15,6 +8,30 @@ namespace TIPIESProj
         public FormMain()
         {
             InitializeComponent();
+        }
+
+        private void продукцияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new Products();
+            form.Show();
+        }
+
+        private void подразделенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new Divisions();
+            form.Show();
+        }
+
+        private void покупательToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new Buyers();
+            form.Show();
+        }
+
+        private void планСчетовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new Form1();
+            form.Show();
         }
     }
 }
