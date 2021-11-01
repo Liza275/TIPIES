@@ -19,11 +19,10 @@ namespace TIPIESProj.DataBase.Models
         public string SudKonto1 { get; set; }
 
         [InverseProperty("Debet")]
-        public virtual List<TransactionLog> DebetsTransactionLogs { get; set; }
+        public List<TransactionLog> Debets { get; set; }
 
         [InverseProperty("Credit")]
-        public virtual List<TransactionLog> CreditTransactionLogs { get; set; }
-
+        public List<TransactionLog> Credits { get; set; }
 
         [ForeignKey("DivisionId")]
         public virtual List<Division> Divisions { get; set; }

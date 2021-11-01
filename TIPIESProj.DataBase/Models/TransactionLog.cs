@@ -16,13 +16,13 @@ namespace TIPIESProj.DataBase.Models
 
         public string SubKontoK1 { get; set; }
 
-        public int DebetId { get; set; }
+        public int? DebetId { get; set; }
 
-        public virtual ChartOfAccounts Debet { get; set; }
+        public ChartOfAccounts Debet { get; set; }
 
-        public int CreditId { get; set; }
+        public int? CreditId { get; set; }
 
-        public virtual ChartOfAccounts Credit { get; set; }
+        public ChartOfAccounts Credit { get; set; }
 
         public int Count { get; set; }
 
