@@ -174,14 +174,80 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buyer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Buyer.Designer.cs">
+      <DependentUpon>Buyer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Buyers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Buyers.Designer.cs">
+      <DependentUpon>Buyers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Division.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Division.Designer.cs">
+      <DependentUpon>Division.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Divisions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Divisions.Designer.cs">
+      <DependentUpon>Divisions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product.Designer.cs">
+      <DependentUpon>Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Products.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Products.Designer.cs">
+      <DependentUpon>Products.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Buyer.resx">
+      <DependentUpon>Buyer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buyers.resx">
+      <DependentUpon>Buyers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Division.resx">
+      <DependentUpon>Division.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Divisions.resx">
+      <DependentUpon>Divisions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product.resx">
+      <DependentUpon>Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Products.resx">
+      <DependentUpon>Products.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
