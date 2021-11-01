@@ -10,22 +10,9 @@ namespace TIPIESProj.DataBase
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-V0A9OFL\SQLEXPRESS;initial catalog=BUDatabaseV2;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseNpgsql(@"Server=localhost;Port=5432;Database=BUDatabase;Username=postgres;Password=password;");
             }
             base.OnConfiguring(optionsBuilder);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<TransactionLog>()
-                        .HasOne(e => e.Debet)
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TransactionLog>()
-                        .HasOne(e => e.Credit)
-                        .WithMany()
-                        .OnDelete(DeleteBehavior.Restrict);
         }
 
         public virtual DbSet<Buyer> Buyers { set; get; }

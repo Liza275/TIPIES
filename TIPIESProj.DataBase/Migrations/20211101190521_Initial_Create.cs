@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TIPIESProj.DataBase.Migrations
 {
@@ -12,7 +13,7 @@ namespace TIPIESProj.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Fio = table.Column<string>(nullable: false),
                     Number = table.Column<string>(nullable: false)
                 },
@@ -26,7 +27,7 @@ namespace TIPIESProj.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AccountNumber = table.Column<float>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     SudKonto1 = table.Column<string>(nullable: true)
@@ -41,7 +42,7 @@ namespace TIPIESProj.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Type = table.Column<string>(nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
                     Count = table.Column<int>(nullable: false),
@@ -57,7 +58,7 @@ namespace TIPIESProj.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ChartOfAccountsId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     DivisionId = table.Column<int>(nullable: true)
@@ -84,7 +85,7 @@ namespace TIPIESProj.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: false),
                     PlannedCostPrice = table.Column<decimal>(nullable: false),
                     ProductTypeId = table.Column<int>(nullable: false),
@@ -106,13 +107,13 @@ namespace TIPIESProj.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OperationLogId = table.Column<int>(nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
                     SudKontoD1 = table.Column<string>(nullable: true),
                     SubKontoK1 = table.Column<string>(nullable: true),
-                    DebetId = table.Column<int>(nullable: false),
-                    CreditId = table.Column<int>(nullable: false),
+                    DebetId = table.Column<int>(nullable: true),
+                    CreditId = table.Column<int>(nullable: true),
                     Count = table.Column<int>(nullable: false),
                     Sum = table.Column<decimal>(nullable: false),
                     TransactionLogId = table.Column<int>(nullable: true)
@@ -125,13 +126,13 @@ namespace TIPIESProj.DataBase.Migrations
                         column: x => x.CreditId,
                         principalTable: "ChartOfAccounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TransactionLogs_ChartOfAccounts_DebetId",
                         column: x => x.DebetId,
                         principalTable: "ChartOfAccounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TransactionLogs_OperationLogs_TransactionLogId",
                         column: x => x.TransactionLogId,
