@@ -15,7 +15,7 @@ namespace TIPIESProj
             InitializeComponent();
 
             this.parentGrid = parentGrid;
-            
+
             if (product != null)
             {
                 objId = product.Id;
@@ -29,6 +29,12 @@ namespace TIPIESProj
         {
             try
             {
+                var str = textBoxCost.Text.Replace(',', '.');
+                if (str.LastIndexOf('.') != -1 && str.Substring(str.LastIndexOf('.')).Length > 3)
+                {
+                    throw new Exception("Укажите только два знака после запятой(точки)");
+                }
+
                 var newData = new DataBase.Models.Product
                 {
                     Name = textBoxName.Text,

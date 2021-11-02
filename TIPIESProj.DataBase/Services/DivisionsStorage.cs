@@ -2,6 +2,7 @@
 using System.Linq;
 using TIPIESProj.DataBase.Models;
 using TIPIESProj.DataBase.Services.Mappers;
+using TIPIESProj.DataBase.ViewModels;
 
 namespace TIPIESProj.DataBase.Services
 {
@@ -60,23 +61,34 @@ namespace TIPIESProj.DataBase.Services
             }
         }
 
-        public static List<Division> GetAll()
+        public static List<DivisionViewModel> GetAll()
         {
             using (var db = new ChartDB())
             {
-                return db.Divisions.ToList();
+                return db.Divisions.Select(CreateModel).ToList();
             }
         }
 
-        public static List<Division> GetFiltered(int charOfAccountsId)
+        public static List<DivisionViewModel> GetFiltered(int charOfAccountsId)
         {
             using (var db = new ChartDB())
             {
                 if (charOfAccountsId == -1)
                     return GetAll();
 
-                return db.Divisions.Where(rec => rec.ChartOfAccountsId == charOfAccountsId).ToList();
+                return db.Divisions.Where(rec => rec.ChartOfAccountsId == charOfAccountsId).Select(CreateModel).ToList();
             }
+        }
+
+        private static DivisionViewModel CreateModel(Division div)
+        {
+            return new DivisionViewModel
+            {
+                Id = div.Id,
+                Name = div.Name,
+                ChartOfAccountsId = div.ChartOfAccountsId,
+                CharOfAccountsName = CharOfAccountsStorage.Get(div.ChartOfAccountsId)?.Name
+            };
         }
     }
 }

@@ -53,13 +53,13 @@ namespace TIPIESProj
             this.dataGridViewDivisions.RowHeadersWidth = 51;
             this.dataGridViewDivisions.RowTemplate.Height = 24;
             this.dataGridViewDivisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDivisions.Size = new System.Drawing.Size(582, 366);
+            this.dataGridViewDivisions.Size = new System.Drawing.Size(652, 366);
             this.dataGridViewDivisions.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(635, 22);
+            this.label1.Location = new System.Drawing.Point(782, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
@@ -69,7 +69,7 @@ namespace TIPIESProj
             // comboBoxExpenseAccount
             // 
             this.comboBoxExpenseAccount.FormattingEnabled = true;
-            this.comboBoxExpenseAccount.Location = new System.Drawing.Point(604, 55);
+            this.comboBoxExpenseAccount.Location = new System.Drawing.Point(709, 56);
             this.comboBoxExpenseAccount.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxExpenseAccount.Name = "comboBoxExpenseAccount";
             this.comboBoxExpenseAccount.Size = new System.Drawing.Size(216, 21);
@@ -77,7 +77,7 @@ namespace TIPIESProj
             // 
             // buttonShow
             // 
-            this.buttonShow.Location = new System.Drawing.Point(604, 104);
+            this.buttonShow.Location = new System.Drawing.Point(700, 98);
             this.buttonShow.Margin = new System.Windows.Forms.Padding(2);
             this.buttonShow.Name = "buttonShow";
             this.buttonShow.Size = new System.Drawing.Size(216, 31);
@@ -88,7 +88,7 @@ namespace TIPIESProj
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(604, 149);
+            this.buttonAdd.Location = new System.Drawing.Point(700, 145);
             this.buttonAdd.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(216, 31);
@@ -99,7 +99,7 @@ namespace TIPIESProj
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(604, 192);
+            this.buttonUpdate.Location = new System.Drawing.Point(700, 193);
             this.buttonUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(216, 31);
@@ -110,7 +110,7 @@ namespace TIPIESProj
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(604, 239);
+            this.buttonDel.Location = new System.Drawing.Point(700, 239);
             this.buttonDel.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(216, 31);
@@ -121,7 +121,7 @@ namespace TIPIESProj
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(604, 286);
+            this.buttonClose.Location = new System.Drawing.Point(700, 285);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(216, 31);
@@ -133,7 +133,7 @@ namespace TIPIESProj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(831, 366);
+            this.ClientSize = new System.Drawing.Size(950, 366);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpdate);

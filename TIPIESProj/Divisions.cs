@@ -23,7 +23,7 @@ namespace TIPIESProj
             Division newForm = new Division(null, dataGridViewDivisions);
             newForm.Show();
         }
-
+        
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             var selected = (int)dataGridViewDivisions.SelectedRows[0].Cells["Id"].Value;

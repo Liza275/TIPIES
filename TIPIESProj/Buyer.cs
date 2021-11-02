@@ -59,5 +59,12 @@ namespace TIPIESProj
                 MessageBox.Show(ex.Message, "Error");
             }
         }
+
+        private void textBoxFIO_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar)) return;
+            else
+                e.Handled = true;
+        }
     }
 }
