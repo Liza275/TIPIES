@@ -36,10 +36,6 @@ namespace TIPIESProj
             this.покупательToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.планСчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.журналОперациToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поступлениеГотовойПродукцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.реализацияГотовойПродукцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.распределениеФактическойСебестоимостиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.журналПроводокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вводНовыхОперацийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,65 +74,37 @@ namespace TIPIESProj
             // продукцияToolStripMenuItem
             // 
             this.продукцияToolStripMenuItem.Name = "продукцияToolStripMenuItem";
-            this.продукцияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.продукцияToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.продукцияToolStripMenuItem.Text = "Продукция";
             this.продукцияToolStripMenuItem.Click += new System.EventHandler(this.продукцияToolStripMenuItem_Click);
             // 
             // подразделенияToolStripMenuItem
             // 
             this.подразделенияToolStripMenuItem.Name = "подразделенияToolStripMenuItem";
-            this.подразделенияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.подразделенияToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.подразделенияToolStripMenuItem.Text = "Подразделения";
             this.подразделенияToolStripMenuItem.Click += new System.EventHandler(this.подразделенияToolStripMenuItem_Click);
             // 
             // покупательToolStripMenuItem
             // 
             this.покупательToolStripMenuItem.Name = "покупательToolStripMenuItem";
-            this.покупательToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.покупательToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.покупательToolStripMenuItem.Text = "Покупатель";
             this.покупательToolStripMenuItem.Click += new System.EventHandler(this.покупательToolStripMenuItem_Click);
             // 
             // планСчетовToolStripMenuItem
             // 
             this.планСчетовToolStripMenuItem.Name = "планСчетовToolStripMenuItem";
-            this.планСчетовToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.планСчетовToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.планСчетовToolStripMenuItem.Text = "План счетов";
             this.планСчетовToolStripMenuItem.Click += new System.EventHandler(this.планСчетовToolStripMenuItem_Click);
             // 
             // журналОперациToolStripMenuItem
             // 
-            this.журналОперациToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поступлениеГотовойПродукцииToolStripMenuItem,
-            this.реализацияГотовойПродукцииToolStripMenuItem,
-            this.распределениеФактическойСебестоимостиToolStripMenuItem,
-            this.списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem});
             this.журналОперациToolStripMenuItem.Name = "журналОперациToolStripMenuItem";
             this.журналОперациToolStripMenuItem.Size = new System.Drawing.Size(120, 20);
             this.журналОперациToolStripMenuItem.Text = "Журнал операций";
-            // 
-            // поступлениеГотовойПродукцииToolStripMenuItem
-            // 
-            this.поступлениеГотовойПродукцииToolStripMenuItem.Name = "поступлениеГотовойПродукцииToolStripMenuItem";
-            this.поступлениеГотовойПродукцииToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.поступлениеГотовойПродукцииToolStripMenuItem.Text = "Поступление готовой продукции";
-            // 
-            // реализацияГотовойПродукцииToolStripMenuItem
-            // 
-            this.реализацияГотовойПродукцииToolStripMenuItem.Name = "реализацияГотовойПродукцииToolStripMenuItem";
-            this.реализацияГотовойПродукцииToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.реализацияГотовойПродукцииToolStripMenuItem.Text = "Реализация готовой продукции";
-            // 
-            // распределениеФактическойСебестоимостиToolStripMenuItem
-            // 
-            this.распределениеФактическойСебестоимостиToolStripMenuItem.Name = "распределениеФактическойСебестоимостиToolStripMenuItem";
-            this.распределениеФактическойСебестоимостиToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.распределениеФактическойСебестоимостиToolStripMenuItem.Text = "Распределение фактической себестоимости";
-            // 
-            // списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem
-            // 
-            this.списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem.Name = "списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem";
-            this.списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem.Size = new System.Drawing.Size(374, 22);
-            this.списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem.Text = "Списание отклонений от фактической себестоимости";
+            this.журналОперациToolStripMenuItem.Click += new System.EventHandler(this.журналОперациToolStripMenuItem_Click);
             // 
             // журналПроводокToolStripMenuItem
             // 
@@ -187,7 +155,7 @@ namespace TIPIESProj
             this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormMain";
             this.Text = "Учет списания фактической себестоимости готовой продукции";
             this.menuStrip1.ResumeLayout(false);
@@ -206,10 +174,6 @@ namespace TIPIESProj
         private System.Windows.Forms.ToolStripMenuItem покупательToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem планСчетовToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem журналОперациToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem поступлениеГотовойПродукцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem реализацияГотовойПродукцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem распределениеФактическойСебестоимостиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списаниеОтклоненийОтФактическойСебестоимостиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem журналПроводокToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вводНовыхОперацийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчётыToolStripMenuItem;

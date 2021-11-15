@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TIPIESProj.DataBase.Models
 {
@@ -11,5 +13,8 @@ namespace TIPIESProj.DataBase.Models
 
         [Required]
         public decimal PlannedCostPrice { get; set; }
+
+        [ForeignKey("ProductId")]
+        public virtual List<OperationLog> OperationLogs { get; set; }
     }
 }

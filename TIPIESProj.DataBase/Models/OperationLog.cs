@@ -23,10 +23,22 @@ namespace TIPIESProj.DataBase.Models
         [ForeignKey("TransactionLogId")]
         public virtual List<TransactionLog> TransactionLog { get; set; }
 
-        [ForeignKey("DivisionId")]
-        public virtual List<Division> Division { get; set; }
+        //[ForeignKey("DivisionId")]
+        //public virtual List<Division> Division { get; set; }
 
-        [ForeignKey("ProductId")]
-        public virtual List<Product> Product { get; set; }
+        //[ForeignKey("ProductId")]
+        //public virtual List<Product> Product { get; set; }
+
+        public int DivisionId { get; set; }
+
+        public Division Division { get; set; }
+
+        public int ProductId { get; set; }
+
+        public Product Product { get; set; }
+
+        public int BuyerId { get; set; }
+
+        public Buyer Buyer { get; set; }
     }
 }

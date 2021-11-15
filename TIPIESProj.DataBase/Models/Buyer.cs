@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TIPIESProj.DataBase.Models
 {
@@ -12,5 +14,7 @@ namespace TIPIESProj.DataBase.Models
         [Required]
         public string Number { get; set; }
 
+        [ForeignKey("BuyerId")]
+        public virtual List<OperationLog> OperationLogs { get; set; }
     }
 }

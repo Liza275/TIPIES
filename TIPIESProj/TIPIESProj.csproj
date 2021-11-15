@@ -207,11 +207,23 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAddEditOperation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddEditOperation.Designer.cs">
+      <DependentUpon>FormAddEditOperation.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOperationList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOperationList.Designer.cs">
+      <DependentUpon>FormOperationList.cs</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
       <SubType>Form</SubType>
@@ -242,8 +254,14 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormAddEditOperation.resx">
+      <DependentUpon>FormAddEditOperation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOperationList.resx">
+      <DependentUpon>FormOperationList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Product.resx">
       <DependentUpon>Product.cs</DependentUpon>

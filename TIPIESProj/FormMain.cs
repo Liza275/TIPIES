@@ -33,5 +33,11 @@ namespace TIPIESProj
             var form = new Form1();
             form.Show();
         }
+
+        private void журналОперациToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormOperationList();
+            form.Show();
+        }
     }
 }
