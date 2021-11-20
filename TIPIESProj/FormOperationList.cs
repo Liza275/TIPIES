@@ -40,9 +40,15 @@ namespace TIPIESProj
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             var selected = (int)gridOperations.SelectedRows[0].Cells["Id"].Value;
-            OperationLogStorage.Delete(selected);
-
-            gridOperations.DataSource = OperationLogStorage.GetAll();
+            var delResult = OperationLogStorage.Delete(selected);
+            if (!string.IsNullOrEmpty(delResult))
+            {
+                MessageBox.Show(delResult, "Message");
+            }
+            else
+            {
+                gridOperations.DataSource = OperationLogStorage.GetAll();
+            }
         }
 
         private void buttonShow_Click(object sender, EventArgs e)

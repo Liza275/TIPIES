@@ -84,7 +84,7 @@ namespace TIPIESProj
             // 
             // numericCount
             // 
-            this.numericCount.Location = new System.Drawing.Point(115, 117);
+            this.numericCount.Location = new System.Drawing.Point(115, 158);
             this.numericCount.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -93,11 +93,12 @@ namespace TIPIESProj
             this.numericCount.Name = "numericCount";
             this.numericCount.Size = new System.Drawing.Size(138, 20);
             this.numericCount.TabIndex = 4;
+            this.numericCount.ValueChanged += new System.EventHandler(this.numericCount_ValueChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 119);
+            this.label3.Location = new System.Drawing.Point(33, 160);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 5;
@@ -105,7 +106,7 @@ namespace TIPIESProj
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(115, 162);
+            this.textBoxSum.Location = new System.Drawing.Point(115, 203);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.Size = new System.Drawing.Size(138, 20);
             this.textBoxSum.TabIndex = 6;
@@ -113,7 +114,7 @@ namespace TIPIESProj
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(58, 165);
+            this.label4.Location = new System.Drawing.Point(58, 206);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 7;
@@ -122,7 +123,7 @@ namespace TIPIESProj
             // comboBoxDivision
             // 
             this.comboBoxDivision.FormattingEnabled = true;
-            this.comboBoxDivision.Location = new System.Drawing.Point(115, 214);
+            this.comboBoxDivision.Location = new System.Drawing.Point(115, 248);
             this.comboBoxDivision.Name = "comboBoxDivision";
             this.comboBoxDivision.Size = new System.Drawing.Size(282, 21);
             this.comboBoxDivision.TabIndex = 8;
@@ -130,7 +131,7 @@ namespace TIPIESProj
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 217);
+            this.label5.Location = new System.Drawing.Point(12, 251);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 9;
@@ -139,15 +140,16 @@ namespace TIPIESProj
             // comboBoxProduct
             // 
             this.comboBoxProduct.FormattingEnabled = true;
-            this.comboBoxProduct.Location = new System.Drawing.Point(115, 265);
+            this.comboBoxProduct.Location = new System.Drawing.Point(115, 118);
             this.comboBoxProduct.Name = "comboBoxProduct";
             this.comboBoxProduct.Size = new System.Drawing.Size(282, 21);
             this.comboBoxProduct.TabIndex = 10;
+            this.comboBoxProduct.SelectedIndexChanged += new System.EventHandler(this.comboBoxProduct_SelectedIndexChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(37, 268);
+            this.label6.Location = new System.Drawing.Point(37, 121);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 11;
@@ -156,7 +158,7 @@ namespace TIPIESProj
             // comboBoxBuyer
             // 
             this.comboBoxBuyer.FormattingEnabled = true;
-            this.comboBoxBuyer.Location = new System.Drawing.Point(115, 314);
+            this.comboBoxBuyer.Location = new System.Drawing.Point(115, 298);
             this.comboBoxBuyer.Name = "comboBoxBuyer";
             this.comboBoxBuyer.Size = new System.Drawing.Size(282, 21);
             this.comboBoxBuyer.TabIndex = 12;
@@ -164,7 +166,7 @@ namespace TIPIESProj
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(32, 317);
+            this.label7.Location = new System.Drawing.Point(32, 301);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 13;

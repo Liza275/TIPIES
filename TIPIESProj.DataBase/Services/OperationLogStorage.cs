@@ -42,7 +42,7 @@ namespace TIPIESProj.DataBase.Services
             }
         }
 
-        public static void Delete(int id)
+        public static string Delete(int id)
         {
             using (var db = new ChartDB())
             {
@@ -50,9 +50,23 @@ namespace TIPIESProj.DataBase.Services
 
                 if (elem != null)
                 {
+                    var all = GetAll();
+                    if (all.FirstOrDefault(rec =>
+                            rec.Data.Month == elem.Data.Month && rec.Data.Year == elem.Data.Year && rec.Equals("Распределение фактической себестоимости по выпущенной продукции")) != null)
+                    {
+                        return "Невозможно удалить так как существует распределение за указанный месяц";
+                    }
+                    if (elem.Type.Equals("Поступления готовой продукции"))
+                    {
+                        foreach (var el in all.Where(rec => rec.Data >= elem.Data && !rec.Type.Equals(elem.Type)))
+                        {
+                            Delete(el.Id);
+                        }
+                    }
                     db.OperationLogs.Remove(elem);
                     db.SaveChanges();
                 }
+                return string.Empty;
             }
         }
 

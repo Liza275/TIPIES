@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TIPIESProj.DataBase.Enums;
 using TIPIESProj.DataBase.Models;
 using TIPIESProj.DataBase.Services;
 
@@ -16,13 +17,15 @@ namespace TIPIESProj
     {
         private OperationLog operationLog;
         private DataGridView grid;
+        private readonly bool isLoaded = false;
 
-        private readonly List<string> operationTypes = new List<string> { "Поступления готовой продукции", "Распределение коммерческих расходов за месяц",
-        "Реализация готовой продукции", "Списание коммерческих расходов за месяц"};
+        private readonly List<string> operationTypes;
 
         public FormAddEditOperation(OperationLog log, DataGridView grid)
         {
             InitializeComponent();
+            operationTypes = OperationsHelper.GetTypeList();
+
             operationLog = log;
 
             this.grid = grid;
@@ -57,6 +60,8 @@ namespace TIPIESProj
                 comboBoxDivision.SelectedValue = log.DivisionId;
                 comboBoxProduct.SelectedValue = log.ProductId;
             }
+
+            isLoaded = true;
         }
 
         private string ValidateOperation()
@@ -85,24 +90,31 @@ namespace TIPIESProj
 
                     break;
 
-                case "Распределение коммерческих расходов за месяц":
-
+                case "Распределение фактической себестоимости по выпущенной продукции":
+                    var rasp = OperationLogStorage.GetAll().FirstOrDefault(rec =>
+                          rec.Type.Equals("Распределение фактической себестоимости по выпущенной продукции") && rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year);
+                    if (rasp != null)
+                    {
+                        return "Уже существует распределение за указанный месяц";
+                    }
                     break;
 
                 case "Реализация готовой продукции":
-                    var totalProducts = OperationLogStorage.GetAll().Where(rec => rec.Equals("Поступления готовой продукции")
-                        && rec.Data >= dateTimePicker.Value).Sum(rec=>rec.Count);
+                    var operations = OperationLogStorage.GetAll().Where(rec => rec.ProductId == (int)comboBoxProduct.SelectedValue);
+                    var addedBefore = operations
+                                      .Where(rec => rec.Type.Equals("Поступления готовой продукции") && rec.Data.Date <= dateTimePicker.Value.Date)
+                                      .Sum(rec => rec.Count);
 
-                    var 
+                    var deletedBefore = operations
+                                        .Where(rec => rec.Type.Equals("Реализация готовой продукции") && rec.Data.Date <= dateTimePicker.Value.Date)
+                                        .Sum(rec => rec.Count);
 
-                    if (operation == null)
-                    {
-                        return "Операции необходимы для данного действия не найдены";
-                    }
+                    if ((addedBefore - deletedBefore) < numericCount.Value)
+                        return "Недостаточно продукции";
 
                     break;
 
-                case "Списание коммерческих расходов за месяц":
+                case "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи":
 
                     break;
             }
@@ -160,7 +172,7 @@ namespace TIPIESProj
                     numericCount.Enabled = true;
                     break;
 
-                case "Распределение коммерческих расходов за месяц":
+                case "Распределение фактической себестоимости по выпущенной продукции":
                     comboBoxDivision.Enabled = false;
                     comboBoxProduct.Enabled = false;
                     textBoxSum.Enabled = false;
@@ -174,7 +186,7 @@ namespace TIPIESProj
                     numericCount.Enabled = true;
                     break;
 
-                case "Списание коммерческих расходов за месяц":
+                case "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи":
                     comboBoxDivision.Enabled = false;
                     comboBoxProduct.Enabled = false;
                     textBoxSum.Enabled = false;
@@ -186,6 +198,30 @@ namespace TIPIESProj
         private void CreateTransactions()
         {
 
+        }
+
+        private void comboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoaded && comboBoxProduct.SelectedIndex != -1)
+            {
+                var product = ProductStorage.Get((int)comboBoxProduct.SelectedValue);
+                if (product != null)
+                {
+                    textBoxSum.Text = Math.Round((numericCount.Value * product.PlannedCostPrice), 4).ToString();
+                }
+            }
+        }
+
+        private void numericCount_ValueChanged(object sender, EventArgs e)
+        {
+            if (isLoaded && comboBoxProduct.SelectedIndex != -1)
+            {
+                var product = ProductStorage.Get((int)comboBoxProduct.SelectedValue);
+                if (product != null)
+                {
+                    textBoxSum.Text = Math.Round((numericCount.Value * product.PlannedCostPrice), 4).ToString();
+                }
+            }
         }
     }
 }
