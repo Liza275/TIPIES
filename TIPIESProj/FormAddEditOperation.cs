@@ -79,6 +79,34 @@ namespace TIPIESProj
             if (comboBoxBuyer.SelectedIndex < 0)
                 return "Выберите покупателя";
 
+            switch (comboBoxOperationType.SelectedValue)
+            {
+                case "Поступления готовой продукции":
+
+                    break;
+
+                case "Распределение коммерческих расходов за месяц":
+
+                    break;
+
+                case "Реализация готовой продукции":
+                    var totalProducts = OperationLogStorage.GetAll().Where(rec => rec.Equals("Поступления готовой продукции")
+                        && rec.Data >= dateTimePicker.Value).Sum(rec=>rec.Count);
+
+                    var 
+
+                    if (operation == null)
+                    {
+                        return "Операции необходимы для данного действия не найдены";
+                    }
+
+                    break;
+
+                case "Списание коммерческих расходов за месяц":
+
+                    break;
+            }
+
             return string.Empty;
         }
 
@@ -97,9 +125,9 @@ namespace TIPIESProj
                 Data = dateTimePicker.Value,
                 Count = numericCount.Enabled ? (int)numericCount.Value : 0,
                 Sum = textBoxSum.Enabled ? decimal.Parse(textBoxSum.Text) : 0,
-                DivisionId = comboBoxDivision.Enabled ? (int)comboBoxDivision.SelectedValue : -1,
-                ProductId = comboBoxProduct.Enabled ? (int)comboBoxProduct.SelectedValue : -1,
-                BuyerId = (int)comboBoxBuyer.SelectedValue
+                DivisionId = comboBoxDivision.Enabled ? (int?)comboBoxDivision.SelectedValue : null,
+                ProductId = comboBoxProduct.Enabled ? (int?)comboBoxProduct.SelectedValue : null,
+                BuyerId = (int?)comboBoxBuyer.SelectedValue
             };
 
             if (operationLog == null)
@@ -146,7 +174,7 @@ namespace TIPIESProj
                     numericCount.Enabled = true;
                     break;
 
-                default:
+                case "Списание коммерческих расходов за месяц":
                     comboBoxDivision.Enabled = false;
                     comboBoxProduct.Enabled = false;
                     textBoxSum.Enabled = false;

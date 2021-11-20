@@ -29,15 +29,15 @@ namespace TIPIESProj.DataBase.Models
         //[ForeignKey("ProductId")]
         //public virtual List<Product> Product { get; set; }
 
-        public int DivisionId { get; set; }
+        public int? DivisionId { get; set; }
 
         public Division Division { get; set; }
 
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
 
         public Product Product { get; set; }
 
-        public int BuyerId { get; set; }
+        public int? BuyerId { get; set; }
 
         public Buyer Buyer { get; set; }
     }
