@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using TIPIESProj.DataBase.Enums;
 using TIPIESProj.DataBase.Models;
 using TIPIESProj.DataBase.Models.Filter;
 
@@ -7,11 +9,15 @@ namespace TIPIESProj.DataBase.Services
 {
     public class OperationLogStorage
     {
-        public static void Add(OperationLog model)
+        public static string Add(OperationLog model)
         {
             using (var db = new ChartDB())
             {
                 var elem = db.OperationLogs.FirstOrDefault(rec => rec.Id == model.Id);
+
+                var result = CanAdd(model);
+                if (!string.IsNullOrEmpty(result))
+                    return result;
 
                 if (elem == null)
                 {
@@ -19,9 +25,23 @@ namespace TIPIESProj.DataBase.Services
                     db.SaveChanges();
                 }
             }
+            return string.Empty;
         }
 
-        public static void Update(OperationLog model)
+        //Если не было поступления, то не можем сделать остальные операции
+        private static string CanAdd(OperationLog ol)
+        {
+            var all = GetAll();
+            if (!ol.Type.Equals(GetTypeString(OperationTypes.Postyp))
+                && all.FirstOrDefault(rec => !DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Postyp))) == null)
+            {
+                return "Если не было поступления, то не можем сделать остальные операции";
+            }
+
+            return string.Empty;
+        }
+
+        public static string Update(OperationLog model)
         {
             using (var db = new ChartDB())
             {
@@ -29,6 +49,10 @@ namespace TIPIESProj.DataBase.Services
 
                 if (elem != null)
                 {
+                    var result = CanUpdate(model);
+                    if (!string.IsNullOrEmpty(result))
+                        return result;
+
                     elem.Type = model.Type;
                     elem.Data = model.Data;
                     elem.ProductId = model.ProductId;
@@ -40,6 +64,36 @@ namespace TIPIESProj.DataBase.Services
                     db.SaveChanges();
                 }
             }
+            return string.Empty;
+        }
+
+        private static string CanUpdate(OperationLog ol)
+        {
+            var all = GetAll();
+            //Если была реализация, то мы не можем изменить поступление и распределение
+            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) || ol.Type.Equals(GetTypeString(OperationTypes.Raspr)))
+            {
+                if (all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Realization))) != null)
+                {
+                    return "Если была реализация, то мы не можем изменить поступление и распределение";
+                }
+            }
+
+            //Если было распределение, то изменить поступление нельзя
+            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) &&
+                all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Raspr))) != null)
+            {
+                return "Если было распределение, то изменить поступление нельзя";
+            }
+
+            //Если было списание, то поступление, реализация и распределение редактировать нельзя
+            if (!ol.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii)) &&
+               all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii))) != null)
+            {
+                return "Если было списание, то поступление, реализация и распределение редактировать нельзя";
+            }
+
+            return string.Empty;
         }
 
         public static string Delete(int id)
@@ -50,15 +104,13 @@ namespace TIPIESProj.DataBase.Services
 
                 if (elem != null)
                 {
-                    var all = GetAll();
-                    if (all.FirstOrDefault(rec =>
-                            rec.Data.Month == elem.Data.Month && rec.Data.Year == elem.Data.Year && rec.Equals("Распределение фактической себестоимости по выпущенной продукции")) != null)
-                    {
-                        return "Невозможно удалить так как существует распределение за указанный месяц";
-                    }
+                    var result = CanDelete(elem);
+                    if (!string.IsNullOrEmpty(result))
+                        return result;
+
                     if (elem.Type.Equals("Поступления готовой продукции"))
                     {
-                        foreach (var el in all.Where(rec => rec.Data >= elem.Data && !rec.Type.Equals(elem.Type)))
+                        foreach (var el in GetAll().Where(rec => rec.Data >= elem.Data && !rec.Type.Equals(elem.Type)))
                         {
                             Delete(el.Id);
                         }
@@ -69,6 +121,35 @@ namespace TIPIESProj.DataBase.Services
                 return string.Empty;
             }
         }
+
+        private static string CanDelete(OperationLog ol)
+        {
+            var all = GetAll();
+            //Если было распределение, то поступление удалять нельзя
+            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) &&
+                all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Raspr))) != null)
+            {
+                return "Если было распределение, то поступление удалять нельзя";
+            }
+            //Если было списание, то реализацию, поступление и распределение удалять нельзя
+            if (!ol.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii)) &&
+                all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii))) != null)
+            {
+                return "Если было списание, то реализацию, поступление и распределение удалять нельзя";
+            }
+
+            return string.Empty;
+        }
+
+        private static bool DataCheck(DateTime candidate, DateTime rec)
+        {
+            if (rec.Month <= candidate.Month && rec.Year <= candidate.Month)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public static OperationLog Get(int id)
         {
@@ -102,6 +183,21 @@ namespace TIPIESProj.DataBase.Services
             using (var db = new ChartDB())
             {
                 return db.OperationLogs.ToList();
+            }
+        }
+
+        private static string GetTypeString(OperationTypes ot)
+        {
+            switch (ot)
+            {
+                case OperationTypes.Postyp:
+                    return "Поступления готовой продукции";
+                case OperationTypes.Raspr:
+                    return "Распределение фактической себестоимости по выпущенной продукции";
+                case OperationTypes.Realization:
+                    return "Реализация готовой продукции";
+                default:
+                    return "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи";
             }
         }
     }

@@ -57,8 +57,10 @@ namespace TIPIESProj
                 dateTimePicker.Value = log.Data;
                 comboBoxOperationType.SelectedIndex = operationTypes.IndexOf(log.Type);
                 comboBoxBuyer.SelectedValue = log.BuyerId;
-                comboBoxDivision.SelectedValue = log.DivisionId;
-                comboBoxProduct.SelectedValue = log.ProductId;
+                if (log.DivisionId != null)
+                    comboBoxDivision.SelectedValue = log.DivisionId;
+                if (log.ProductId != null)
+                    comboBoxProduct.SelectedValue = log.ProductId;
             }
 
             isLoaded = true;
@@ -69,8 +71,8 @@ namespace TIPIESProj
             if (comboBoxOperationType.SelectedIndex < 0)
                 return "Выберите тип операции";
 
-            if (numericCount.Enabled && numericCount.Value < 0)
-                return "Количество не может быть меньше 0";
+            if (numericCount.Enabled && numericCount.Value < 1)
+                return "Количество не может быть меньше 1";
 
             if (textBoxSum.Enabled && (!decimal.TryParse(textBoxSum.Text, out decimal result) || result < 0))
                 return "Некорректное значение суммы";
@@ -91,8 +93,15 @@ namespace TIPIESProj
                     break;
 
                 case "Распределение фактической себестоимости по выпущенной продукции":
+                    var existPostyp = OperationLogStorage.GetAll().FirstOrDefault(rec =>
+                        rec.Type.Equals("Поступления готовой продукции") && rec.Data.Date <= dateTimePicker.Value.Date);
+
+                    if (existPostyp == null)
+                        return "Не найдено поступление";
+
                     var rasp = OperationLogStorage.GetAll().FirstOrDefault(rec =>
-                          rec.Type.Equals("Распределение фактической себестоимости по выпущенной продукции") && rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year);
+                          rec.Type.Equals("Распределение фактической себестоимости по выпущенной продукции") &&
+                              rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year);
                     if (rasp != null)
                     {
                         return "Уже существует распределение за указанный месяц";
@@ -115,7 +124,11 @@ namespace TIPIESProj
                     break;
 
                 case "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи":
+                    var existPostyp2 = OperationLogStorage.GetAll().FirstOrDefault(rec =>
+                        rec.Type.Equals("Поступления готовой продукции") && rec.Data.Date <= dateTimePicker.Value.Date);
 
+                    if (existPostyp2 == null)
+                        return "Не найдено поступление";
                     break;
             }
 
@@ -142,12 +155,20 @@ namespace TIPIESProj
                 BuyerId = (int?)comboBoxBuyer.SelectedValue
             };
 
+            string result;
             if (operationLog == null)
-                OperationLogStorage.Add(log);
+            {
+                result = OperationLogStorage.Add(log);
+            }
             else
             {
                 log.Id = operationLog.Id;
-                OperationLogStorage.Update(log);
+                result = OperationLogStorage.Update(log);
+            }
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                MessageBox.Show(result, "Сообщение");
             }
 
             CreateTransactions();

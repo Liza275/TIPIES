@@ -4,21 +4,24 @@ using System.Text;
 
 namespace TIPIESProj.DataBase.Enums
 {
+    public enum OperationTypes
+    {
+        Postyp,
+        Raspr,
+        Realization,
+        SpisanieOtlonenii
+    }
+
     public class OperationsHelper
     {
-        public static readonly string ReadyProducts = "Поступления готовой продукции";
-        public static readonly string RasprFactSebestoimosti = "Распределение фактической себестоимости по выпущенной продукции";
-        public static readonly string Realization = "Реализация готовой продукции";
-        public static readonly string SpisanieOtlonenii = "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи";
-
         public static List<string> GetTypeList()
         {
             return new List<string>
             {
-                ReadyProducts,
-                RasprFactSebestoimosti,
-                Realization,
-                SpisanieOtlonenii
+                "Поступления готовой продукции",
+                "Распределение фактической себестоимости по выпущенной продукции",
+                "Реализация готовой продукции",
+                "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи"
             };
         }
     }
