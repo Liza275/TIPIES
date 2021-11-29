@@ -33,12 +33,56 @@ namespace TIPIESProj.DataBase.Services
         {
             var all = GetAll();
             if (!ol.Type.Equals(GetTypeString(OperationTypes.Postyp))
-                && all.FirstOrDefault(rec => !DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Postyp))) == null)
+                && all.FirstOrDefault(rec => IsDate(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Postyp))) == null)
             {
                 return "Если не было поступления, то не можем сделать остальные операции";
             }
 
+            if (ol.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii)) &&
+                all.FirstOrDefault(rec => rec.Data.Month == ol.Data.Month && rec.Data.Year == ol.Data.Year && rec.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii))) != null)
+            {
+                return "Списание уже было";
+            }
+
+            //if (ol.Type.Equals(GetTypeString(OperationTypes.Raspr)) &&
+            //    all.FirstOrDefault(rec => rec.Data.Month == ol.Data.Month && rec.Data.Year == ol.Data.Year && rec.Type.Equals(GetTypeString(OperationTypes.Raspr))) != null)
+            //{
+            //    return "Распределние уже было";
+            //}
+
             return string.Empty;
+        }
+
+        private static bool IsDate(DateTime ol, DateTime rec)
+        {
+            if (ol.Month != rec.Month)
+                return false;
+            if (ol.Year != rec.Year)
+                return false;
+            if (ol.Day < rec.Day)
+                return false;
+            if (ol.Day == rec.Day)
+            {
+                if (ol.Hour < rec.Hour)
+                    return false;
+                if (ol.Hour == rec.Hour)
+                {
+                    if (ol.Minute < rec.Minute)
+                        return false;
+                    if (ol.Minute == rec.Minute)
+                    {
+                        if (ol.Second < rec.Second)
+                            return false;
+                        if (ol.Second == rec.Second)
+                        {
+                            if (ol.Millisecond < rec.Millisecond)
+                                return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         public static string Update(OperationLog model)
@@ -143,7 +187,7 @@ namespace TIPIESProj.DataBase.Services
 
         private static bool DataCheck(DateTime candidate, DateTime rec)
         {
-            if (rec.Month <= candidate.Month && rec.Year <= candidate.Month)
+            if (rec.Month == candidate.Month && rec.Year == candidate.Year)
             {
                 return true;
             }
