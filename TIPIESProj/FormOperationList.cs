@@ -21,7 +21,7 @@ namespace TIPIESProj
         {
             InitializeComponent();
             comboBoxOperationType.DataSource = operationTypes;
-            gridOperations.DataSource = OperationLogStorage.GetAll();
+            gridOperations.DataSource = OperationLogStorage.GetAllView();
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace TIPIESProj
             }
             else
             {
-                gridOperations.DataSource = OperationLogStorage.GetAll();
+                gridOperations.DataSource = OperationLogStorage.GetAllView();
             }
         }
 
@@ -55,7 +55,7 @@ namespace TIPIESProj
         {
             if (comboBoxOperationType.SelectedValue.Equals("Все"))
             {
-                gridOperations.DataSource = OperationLogStorage.GetAll();
+                gridOperations.DataSource = OperationLogStorage.GetAllView();
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace TIPIESProj
                 OperationType = (string)comboBoxOperationType.SelectedValue
             };
 
-            gridOperations.DataSource = OperationLogStorage.GetFiltered(filter);
+            gridOperations.DataSource = OperationLogStorage.GetFilteredView(filter);
         }
     }
 }

@@ -222,11 +222,38 @@ namespace TIPIESProj.DataBase.Services
             }
         }
 
+        public static List<OperationLogViewModel> GetFilteredView(OperationLogFilterModel filter)
+        {
+            using (var db = new ChartDB())
+            {
+                var query = db.OperationLogs.AsQueryable();
+
+                if (filter.DateFrom.HasValue)
+                    query = query.Where(rec => rec.Data >= filter.DateFrom.Value);
+
+                if (filter.DateTo.HasValue)
+                    query = query.Where(rec => rec.Data <= filter.DateTo.Value);
+
+                if (!string.IsNullOrEmpty(filter.OperationType))
+                    query = query.Where(rec => rec.Type.Equals(filter.OperationType));
+
+                return query.Select(CreateModel).ToList();
+            }
+        }
+
         public static List<OperationLog> GetAll()
         {
             using (var db = new ChartDB())
             {
                 return db.OperationLogs.ToList();
+            }
+        }
+
+        public static List<OperationLogViewModel> GetAllView()
+        {
+            using (var db = new ChartDB())
+            {
+                return db.OperationLogs.Select(CreateModel).ToList();
             }
         }
 
@@ -244,5 +271,41 @@ namespace TIPIESProj.DataBase.Services
                     return "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи";
             }
         }
+
+        private static OperationLogViewModel CreateModel(OperationLog ol)
+        {
+            var product = ProductStorage.Get(ol.ProductId ?? -1)?.Name;
+            var buyer = BuyerStorage.Get(ol.BuyerId ?? -1)?.Fio;
+            var division = DivisionsStorage.Get(ol.DivisionId ?? -1)?.Name;
+
+            return new OperationLogViewModel
+            {
+                Type = ol.Type,
+                Data = ol.Data,
+                Count = ol.Count,
+                Sum = ol.Sum,
+                Division = division,
+                Product = product,
+                Buyer = buyer
+            };
+        }
+    }
+
+
+    public class OperationLogViewModel
+    {
+        public string Type { get; set; }
+
+        public DateTime Data { get; set; }
+
+        public int Count { get; set; }
+
+        public decimal Sum { get; set; }
+
+        public string Division { get; set; }
+
+        public string Product { get; set; }
+
+        public string Buyer { get; set; }
     }
 }
