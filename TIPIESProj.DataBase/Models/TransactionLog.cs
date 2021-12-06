@@ -22,6 +22,14 @@ namespace TIPIESProj.DataBase.Models
 
         public ChartOfAccounts Credit { get; set; }
 
+        public int? ProductId { get; set; }
+
+        public Product Product { get; set; }
+
+        public int? DivisionId { get; set; }
+
+        public Division Division { get; set; }
+
         public int Count { get; set; }
 
         public decimal Sum { get; set; }

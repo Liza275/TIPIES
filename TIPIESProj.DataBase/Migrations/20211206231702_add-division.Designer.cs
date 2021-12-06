@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TIPIESProj.DataBase;
@@ -9,9 +10,10 @@ using TIPIESProj.DataBase;
 namespace TIPIESProj.DataBase.Migrations
 {
     [DbContext(typeof(ChartDB))]
-    partial class ChartDBModelSnapshot : ModelSnapshot
+    [Migration("20211206231702_add-division")]
+    partial class adddivision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

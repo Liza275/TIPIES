@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using TIPIESProj.DataBase.Models;
 using TIPIESProj.DataBase.Services.Mappers;
+using TIPIESProj.DataBase.ViewModels;
 
 namespace TIPIESProj.DataBase.Services
 {
@@ -59,7 +61,8 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                return db.TransactionLogs.FirstOrDefault(rec => rec.Id == id);
+                return db.TransactionLogs.Include(rec => rec.Product).Include(rec => rec.Division).Include(rec => rec.Debet)
+                    .Include(rec => rec.Credit).Include(rec => rec.OperationLog).FirstOrDefault(rec => rec.Id == id);
             }
         }
 
@@ -67,8 +70,36 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                return db.TransactionLogs.ToList();
+                return db.TransactionLogs.Include(rec => rec.Product).Include(rec => rec.Division).Include(rec => rec.Debet)
+                    .Include(rec => rec.Credit).Include(rec => rec.OperationLog).ToList();
             }
+        }
+
+        public static List<TransactionLogViewModel> GetAllViewModels()
+        {
+            using (var db = new ChartDB())
+            {
+                return db.TransactionLogs.Include(rec => rec.Product).Include(rec => rec.Division).Include(rec => rec.Debet)
+                    .Include(rec => rec.Credit).Include(rec => rec.OperationLog).Select(CreateModel).ToList();
+            }
+        }
+
+        private static TransactionLogViewModel CreateModel(TransactionLog transactionLog)
+        {
+            return new TransactionLogViewModel
+            {
+                Id = transactionLog.Id,
+                TransactionDate = transactionLog.Data,
+                SubkontoDebet = transactionLog.SudKontoD1,
+                SubkontoCredit = transactionLog.SubKontoK1,
+                Count = transactionLog.Count,
+                Sum = transactionLog.Sum,
+                Debet = transactionLog.Debet.AccountNumber,
+                Credit = transactionLog.Credit.AccountNumber,
+                ProductId = transactionLog?.Id,
+                Product = transactionLog.Product?.Name,
+                OperationId = transactionLog.OperationLogId
+            };
         }
     }
 }

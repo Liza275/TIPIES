@@ -37,7 +37,6 @@ namespace TIPIESProj
             this.планСчетовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.журналОперациToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.журналПроводокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вводНовыхОперацийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетПродажПродукцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетРасчетаОтклоненийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,17 +107,10 @@ namespace TIPIESProj
             // 
             // журналПроводокToolStripMenuItem
             // 
-            this.журналПроводокToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.вводНовыхОперацийToolStripMenuItem});
             this.журналПроводокToolStripMenuItem.Name = "журналПроводокToolStripMenuItem";
             this.журналПроводокToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
             this.журналПроводокToolStripMenuItem.Text = "Журнал проводок";
-            // 
-            // вводНовыхОперацийToolStripMenuItem
-            // 
-            this.вводНовыхОперацийToolStripMenuItem.Name = "вводНовыхОперацийToolStripMenuItem";
-            this.вводНовыхОперацийToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.вводНовыхОперацийToolStripMenuItem.Text = "Ввод новых операций";
+            this.журналПроводокToolStripMenuItem.Click += new System.EventHandler(this.журналПроводокToolStripMenuItem_Click);
             // 
             // отчётыToolStripMenuItem
             // 
@@ -175,7 +167,6 @@ namespace TIPIESProj
         private System.Windows.Forms.ToolStripMenuItem планСчетовToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem журналОперациToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem журналПроводокToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вводНовыхОперацийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчётыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчетПродажПродукцииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчетРасчетаОтклоненийToolStripMenuItem;

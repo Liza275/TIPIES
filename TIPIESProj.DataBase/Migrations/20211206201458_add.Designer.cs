@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TIPIESProj.DataBase;
@@ -9,9 +10,10 @@ using TIPIESProj.DataBase;
 namespace TIPIESProj.DataBase.Migrations
 {
     [DbContext(typeof(ChartDB))]
-    partial class ChartDBModelSnapshot : ModelSnapshot
+    [Migration("20211206201458_add")]
+    partial class add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,9 +165,6 @@ namespace TIPIESProj.DataBase.Migrations
                     b.Property<int?>("DebetId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("DivisionId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("OperationLogId")
                         .HasColumnType("integer");
 
@@ -189,8 +188,6 @@ namespace TIPIESProj.DataBase.Migrations
                     b.HasIndex("CreditId");
 
                     b.HasIndex("DebetId");
-
-                    b.HasIndex("DivisionId");
 
                     b.HasIndex("ProductId");
 
@@ -230,10 +227,6 @@ namespace TIPIESProj.DataBase.Migrations
                     b.HasOne("TIPIESProj.DataBase.Models.ChartOfAccounts", "Debet")
                         .WithMany("Debets")
                         .HasForeignKey("DebetId");
-
-                    b.HasOne("TIPIESProj.DataBase.Models.Division", "Division")
-                        .WithMany()
-                        .HasForeignKey("DivisionId");
 
                     b.HasOne("TIPIESProj.DataBase.Models.Product", "Product")
                         .WithMany()

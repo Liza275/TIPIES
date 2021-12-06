@@ -171,7 +171,7 @@ namespace TIPIESProj
                 MessageBox.Show(result, "Сообщение");
             }
 
-            CreateTransactions();
+            CreateTransactions("");
 
             grid.DataSource = OperationLogStorage.GetAll();
             this.Close();
@@ -216,9 +216,60 @@ namespace TIPIESProj
             }
         }
 
-        private void CreateTransactions()
+        private void CreateTransactions(string type)
         {
+            if (type.Equals("Поступления готовой продукции"))
+            {
+                //var transactions = TransactionLogStorage.GetAll();
+                var product = comboBoxProduct.SelectedItem as DataBase.Models.Product;
 
+                //var receiptCount = transactions.Where(t => t.Debet.AccountNumber == 43 && t.ProductId == product.Id).Sum(t2 => t2.Count);
+                //var sellCount = transactions.Where(t => t.Debet.AccountNumber == 20 && t.Credit.AccountNumber == 43 && t.ProductId == product.Id).Sum(t2 => t2.Count);
+
+                //if (receiptCount - sellCount - (int)numericCount.Value < 0)
+                //{
+                //    MessageBox.Show("Недостаточно продуктов для списания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
+
+                TransactionLogStorage.Add(new TransactionLog
+                {
+                    DebetId = CharOfAccountsStorage.GetAll().FirstOrDefault(rec=>rec.AccountNumber==43).Id,
+                    CreditId = CharOfAccountsStorage.GetAll().FirstOrDefault(rec => rec.AccountNumber == 20).Id,
+                    SubKontoK1 = product.Name,
+                    OperationLogId = comboBoxOperationType.SelectedValue,
+                    TransactionDate = dateTimePicker.Value,
+                    TransactionsId = new List<int>(),
+                    Count = operationLog.Count,
+                    Product = product.Id,
+                    Sum = operationLog.Count * product.PlannedCostPrice
+                });
+
+                _transactionLogLogic.CreateOrUpdate(new TransactionLogBindingModel
+                {
+                    ChartAccountDebet = 62,
+                    SubkontoDebet = comboBoxBuyer.Text,
+                    ChartAccountCredit = 90,
+                    OperationLog = operationLog.Id,
+                    Sum = numericUpDownPrice.Value * operationLog.Count,
+                    TransactionDate = dateTimePicker.Value,
+                    TransactionsId = new List<int>(),
+                    Product = product.Id,
+                    Count = (int)numericUpDownCount.Value
+                });
+            }
+            if (type.Equals("Распределение фактической себестоимости по выпущенной продукции"))
+            {
+
+            }
+            if (type.Equals("Реализация готовой продукции"))
+            {
+
+            }
+            if (type.Equals("Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи"))
+            {
+
+            }
         }
 
         private void comboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
