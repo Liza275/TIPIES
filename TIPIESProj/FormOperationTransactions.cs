@@ -33,7 +33,7 @@ namespace TIPIESProj
             labelCount.Text = operation.Count.ToString();
             labelSum.Text = operation.Sum.ToString(CultureInfo.InvariantCulture);
 
-            dataGridView.DataSource = operation.TransactionLog;
+            dataGridView.DataSource = TransactionLogStorage.GetAllViewModels().Where(rec => rec.OperationId == Id.Value).ToList();
         }
     }
 }

@@ -32,18 +32,18 @@ namespace TIPIESProj
                 Sum = numericUpDownSum.Value
             });
 
-            var operationLog = OperationLogStorage.GetAll().FirstOrDefault(rec => rec.Data == dateTimePicker.Value
-                && rec.Type.Equals("Накопление фактических коммерческих расходов за месяц") && rec.Count == 1 && rec.Sum == numericUpDownSum.Value);
-
+            var coa20 = CharOfAccountsStorage.GetAll().FirstOrDefault(rec => rec.AccountNumber == 20);
+            var coa10 = CharOfAccountsStorage.GetAll().FirstOrDefault(rec => rec.AccountNumber == 10);
             var transaction = new TransactionLog
             {
-                DebetId = CharOfAccountsStorage.GetAll().FirstOrDefault(rec => rec.AccountNumber == 20).Id,
-                SudKontoD1 = comboBoxExpense.Text,
-                CreditId = CharOfAccountsStorage.GetAll().FirstOrDefault(rec => rec.AccountNumber == 10).Id,
+                DebetId = coa20.Id,
+                SudKontoD1 = coa20.Name,
+                CreditId = coa10.Id,
+                SubKontoK1 = coa10.Name,
                 Data = dateTimePicker.Value,
                 Count = 1,
                 Sum = numericUpDownSum.Value,
-                OperationLogId = operationLog.Id
+                OperationLogId= OperationLogStorage.LastAddedId
             };
 
             TransactionLogStorage.Add(transaction);

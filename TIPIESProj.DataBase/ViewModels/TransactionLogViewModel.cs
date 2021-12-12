@@ -25,7 +25,7 @@ namespace TIPIESProj.DataBase.ViewModels
         public string SubkontoCredit { get; set; }
 
         [DisplayName("Количество")]
-        public int Count { get; set; }
+        public int? Count { get; set; }
 
         [DisplayName("Сумма")]
         public decimal Sum { get; set; }

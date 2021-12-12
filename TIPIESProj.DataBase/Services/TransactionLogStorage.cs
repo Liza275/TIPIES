@@ -84,6 +84,14 @@ namespace TIPIESProj.DataBase.Services
             }
         }
 
+        public static void DeleteTransactions(int logId)
+        {
+            foreach (var el in GetAll().Where(rec => rec.OperationLog != null && rec.OperationLog.Id == logId).Select(rec => rec.Id))
+            {
+                Delete(el);
+            }
+        }
+
         private static TransactionLogViewModel CreateModel(TransactionLog transactionLog)
         {
             return new TransactionLogViewModel

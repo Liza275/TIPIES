@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TIPIESProj.DataBase.Enums;
@@ -9,6 +10,8 @@ namespace TIPIESProj.DataBase.Services
 {
     public class OperationLogStorage
     {
+        public static int LastAddedId;
+
         public static string Add(OperationLog model)
         {
             using (var db = new ChartDB())
@@ -23,6 +26,7 @@ namespace TIPIESProj.DataBase.Services
                 {
                     db.OperationLogs.Add(model);
                     db.SaveChanges();
+                    LastAddedId = model.Id;
                 }
             }
             return string.Empty;
@@ -97,6 +101,7 @@ namespace TIPIESProj.DataBase.Services
                     if (!string.IsNullOrEmpty(result))
                         return result;
 
+                    TransactionLogStorage.DeleteTransactions(model.Id);
                     elem.Type = model.Type;
                     elem.Data = model.Data;
                     elem.ProductId = model.ProductId;
@@ -159,6 +164,8 @@ namespace TIPIESProj.DataBase.Services
                             Delete(el.Id);
                         }
                     }
+
+                    TransactionLogStorage.DeleteTransactions(id);
                     db.OperationLogs.Remove(elem);
                     db.SaveChanges();
                 }
@@ -199,7 +206,11 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                return db.OperationLogs.FirstOrDefault(rec => rec.Id == id);
+                return db.OperationLogs.Include(rec => rec.Division)
+                    .Include(rec => rec.Product)
+                    .Include(rec => rec.Buyer)
+                    .Include(rec => rec.TransactionLog)
+                    .FirstOrDefault(rec => rec.Id == id);
             }
         }
 
@@ -207,7 +218,10 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                var query = db.OperationLogs.AsQueryable();
+                var query = db.OperationLogs.Include(rec => rec.Division)
+                    .Include(rec => rec.Product)
+                    .Include(rec => rec.TransactionLog)
+                    .Include(rec => rec.Buyer).AsQueryable();
 
                 if (filter.DateFrom.HasValue)
                     query = query.Where(rec => rec.Data >= filter.DateFrom.Value);
@@ -226,7 +240,10 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                var query = db.OperationLogs.AsQueryable();
+                var query = db.OperationLogs.Include(rec => rec.Division)
+                    .Include(rec => rec.Product)
+                    .Include(rec => rec.TransactionLog)
+                    .Include(rec => rec.Buyer).AsQueryable();
 
                 if (filter.DateFrom.HasValue)
                     query = query.Where(rec => rec.Data >= filter.DateFrom.Value);
@@ -245,7 +262,10 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                return db.OperationLogs.ToList();
+                return db.OperationLogs.Include(rec => rec.Division)
+                    .Include(rec => rec.Product)
+                    .Include(rec => rec.TransactionLog)
+                    .Include(rec => rec.Buyer).ToList();
             }
         }
 
@@ -253,7 +273,10 @@ namespace TIPIESProj.DataBase.Services
         {
             using (var db = new ChartDB())
             {
-                return db.OperationLogs.Select(CreateModel).ToList();
+                return db.OperationLogs.Include(rec => rec.Division)
+                    .Include(rec => rec.Product)
+                    .Include(rec => rec.TransactionLog)
+                    .Include(rec => rec.Buyer).Select(CreateModel).ToList();
             }
         }
 
@@ -280,6 +303,7 @@ namespace TIPIESProj.DataBase.Services
 
             return new OperationLogViewModel
             {
+                Id = ol.Id,
                 Type = ol.Type,
                 Data = ol.Data,
                 Count = ol.Count,
@@ -294,6 +318,8 @@ namespace TIPIESProj.DataBase.Services
 
     public class OperationLogViewModel
     {
+        public int Id { get; set; }
+
         public string Type { get; set; }
 
         public DateTime Data { get; set; }

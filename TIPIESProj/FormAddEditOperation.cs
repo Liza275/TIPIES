@@ -137,43 +137,51 @@ namespace TIPIESProj
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            var valResult = ValidateOperation();
-            if (!string.IsNullOrEmpty(valResult))
+            try
             {
-                MessageBox.Show(valResult, "Ошибка");
-                return;
+                var valResult = ValidateOperation();
+                if (!string.IsNullOrEmpty(valResult))
+                {
+                    MessageBox.Show(valResult, "Ошибка");
+                    return;
+                }
+
+                var log = new OperationLog
+                {
+                    Type = (string)comboBoxOperationType.SelectedValue,
+                    Data = dateTimePicker.Value,
+                    Count = numericCount.Enabled ? (int)numericCount.Value : 0,
+                    Sum = textBoxSum.Enabled ? decimal.Parse(textBoxSum.Text) : 0,
+                    DivisionId = comboBoxDivision.Enabled ? (int?)comboBoxDivision.SelectedValue : null,
+                    ProductId = comboBoxProduct.Enabled ? (int?)comboBoxProduct.SelectedValue : null,
+                    BuyerId = (int?)comboBoxBuyer.SelectedValue
+                };
+
+                string result;
+                if (operationLog == null)
+                {
+                    result = OperationLogStorage.Add(log);
+                    log.Id = OperationLogStorage.LastAddedId;
+                }
+                else
+                {
+                    log.Id = operationLog.Id;
+                    result = OperationLogStorage.Update(log);
+                }
+
+                if (!string.IsNullOrEmpty(result))
+                {
+                    MessageBox.Show(result, "Сообщение");
+                }
+
+                CreateTransactions(log);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
             }
 
-            var log = new OperationLog
-            {
-                Type = (string)comboBoxOperationType.SelectedValue,
-                Data = dateTimePicker.Value,
-                Count = numericCount.Enabled ? (int)numericCount.Value : 0,
-                Sum = textBoxSum.Enabled ? decimal.Parse(textBoxSum.Text) : 0,
-                DivisionId = comboBoxDivision.Enabled ? (int?)comboBoxDivision.SelectedValue : null,
-                ProductId = comboBoxProduct.Enabled ? (int?)comboBoxProduct.SelectedValue : null,
-                BuyerId = (int?)comboBoxBuyer.SelectedValue
-            };
-
-            string result;
-            if (operationLog == null)
-            {
-                result = OperationLogStorage.Add(log);
-            }
-            else
-            {
-                log.Id = operationLog.Id;
-                result = OperationLogStorage.Update(log);
-            }
-
-            if (!string.IsNullOrEmpty(result))
-            {
-                MessageBox.Show(result, "Сообщение");
-            }
-
-            CreateTransactions("");
-
-            grid.DataSource = OperationLogStorage.GetAll();
+            grid.DataSource = OperationLogStorage.GetAllView();
             this.Close();
         }
 
@@ -216,59 +224,145 @@ namespace TIPIESProj
             }
         }
 
-        private void CreateTransactions(string type)
+        private void CreateTransactions(OperationLog log)
         {
-            if (type.Equals("Поступления готовой продукции"))
+            var charOfAccounts = CharOfAccountsStorage.GetAll();
+            var transactions = TransactionLogStorage.GetAll();
+
+            var coa43 = charOfAccounts.FirstOrDefault(rec => rec.AccountNumber == 43);
+            var coa20 = charOfAccounts.FirstOrDefault(rec => rec.AccountNumber == 20);
+            var coa90 = charOfAccounts.FirstOrDefault(rec => rec.AccountNumber == 90);
+            var coa62 = charOfAccounts.FirstOrDefault(rec => rec.AccountNumber == 62);
+
+            var product = comboBoxProduct.SelectedItem as DataBase.Models.Product;
+            if (log.Type.Equals("Поступления готовой продукции"))
             {
-                //var transactions = TransactionLogStorage.GetAll();
-                var product = comboBoxProduct.SelectedItem as DataBase.Models.Product;
+                TransactionLogStorage.Add(new TransactionLog
+                {
+                    DebetId = coa43.Id,
+                    CreditId = coa20.Id,
+                    SudKontoD1 = coa43.Name,
+                    SubKontoK1 = coa20.Name,
+                    OperationLogId = log.Id,
+                    Data = dateTimePicker.Value,
+                    Count = log.Count,
+                    ProductId = product.Id,
+                    Sum = log.Sum
+                });
+            }
+            if (log.Type.Equals("Распределение фактической себестоимости по выпущенной продукции"))
+            {
+                var doSum = transactions
+                        .Where(rec => rec.Debet.AccountNumber == 20 &&
+                            rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year)
+                        .Sum(rec => rec.Sum);
+                var spiSum = transactions
+                    .Where(rec => rec.OperationLog!=null && rec.OperationLog.Type.Equals("Поступления готовой продукции") &&
+                        rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year).Sum(rec => rec.Sum);
 
-                //var receiptCount = transactions.Where(t => t.Debet.AccountNumber == 43 && t.ProductId == product.Id).Sum(t2 => t2.Count);
-                //var sellCount = transactions.Where(t => t.Debet.AccountNumber == 20 && t.Credit.AccountNumber == 43 && t.ProductId == product.Id).Sum(t2 => t2.Count);
+                foreach (var el in ProductStorage.GetAll())
+                {
+                    //if not presented product
+                    var spiData = transactions
+                    .Where(rec => rec.Debet.AccountNumber == 43 && rec.Credit.AccountNumber == 20 && rec.Product.Name.Equals(el.Name) &&
+                        rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year);
 
-                //if (receiptCount - sellCount - (int)numericCount.Value < 0)
-                //{
-                //    MessageBox.Show("Недостаточно продуктов для списания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
+                    if (!spiData.Any())
+                        continue;
+                    //if (!spiData.Any())
+                    //    throw new Exception("Не все товары представлены");
+
+                    var spi = spiData.Sum(rec => rec.Sum);
+                    var sfi = (doSum / spiSum) * spi;
+
+                    if (sfi - spi == 0)
+                        continue;
+
+                    TransactionLogStorage.Add(new TransactionLog
+                    {
+                        DebetId = coa43.Id,
+                        CreditId = coa20.Id,
+                        SudKontoD1 = coa43.Name,
+                        SubKontoK1 = coa20.Name,
+                        OperationLogId = log.Id,
+                        Data = dateTimePicker.Value,
+                        Count = null,
+                        Sum = sfi - spi
+                    });
+                }
+            }
+            if (log.Type.Equals("Реализация готовой продукции"))
+            {
+                TransactionLogStorage.Add(new TransactionLog
+                {
+                    DebetId = coa90.Id,
+                    CreditId = coa43.Id,
+                    SudKontoD1 = coa90.Name,
+                    SubKontoK1 = coa43.Name,
+                    OperationLogId = log.Id,
+                    Data = dateTimePicker.Value,
+                    Count = log.Count,
+                    ProductId = product.Id,
+                    Sum = log.Count * product.PlannedCostPrice
+                });
 
                 TransactionLogStorage.Add(new TransactionLog
                 {
-                    DebetId = CharOfAccountsStorage.GetAll().FirstOrDefault(rec=>rec.AccountNumber==43).Id,
-                    CreditId = CharOfAccountsStorage.GetAll().FirstOrDefault(rec => rec.AccountNumber == 20).Id,
-                    SubKontoK1 = product.Name,
-                    OperationLogId = comboBoxOperationType.SelectedValue,
-                    TransactionDate = dateTimePicker.Value,
-                    TransactionsId = new List<int>(),
-                    Count = operationLog.Count,
-                    Product = product.Id,
-                    Sum = operationLog.Count * product.PlannedCostPrice
+                    DebetId = coa62.Id,
+                    CreditId = coa90.Id,
+                    SudKontoD1 = coa62.Name,
+                    SubKontoK1 = coa90.Name,
+                    OperationLogId = log.Id,
+                    Data = dateTimePicker.Value,
+                    Count = log.Count,
+                    ProductId = product.Id,
+                    Sum = log.Sum
                 });
-
-                _transactionLogLogic.CreateOrUpdate(new TransactionLogBindingModel
+            }
+            if (log.Type.Equals("Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи"))
+            {
+                foreach (var el in ProductStorage.GetAll())
                 {
-                    ChartAccountDebet = 62,
-                    SubkontoDebet = comboBoxBuyer.Text,
-                    ChartAccountCredit = 90,
-                    OperationLog = operationLog.Id,
-                    Sum = numericUpDownPrice.Value * operationLog.Count,
-                    TransactionDate = dateTimePicker.Value,
-                    TransactionsId = new List<int>(),
-                    Product = product.Id,
-                    Count = (int)numericUpDownCount.Value
-                });
-            }
-            if (type.Equals("Распределение фактической себестоимости по выпущенной продукции"))
-            {
+                    var postypTrans = transactions.Where(rec => rec.OperationLog != null && rec.OperationLog.Type.Equals("Поступления готовой продукции") &&
+                        rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year &&
+                        rec.Product.Name.Equals(el.Name));
 
-            }
-            if (type.Equals("Реализация готовой продукции"))
-            {
+                    if (!postypTrans.Any())
+                        continue;
+                    //if (!postypTrans.Any())
+                    //    throw new Exception("Не все товары представлены");
 
-            }
-            if (type.Equals("Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи"))
-            {
+                    var kolfi = (int)postypTrans.Sum(rec => rec.Count);
+                    var sumfi = postypTrans.Sum(rec => rec.Sum);
 
+                    var realizTrans = transactions
+                    .Where(rec => rec.Debet.AccountNumber == 90 && rec.Credit.AccountNumber == 43 && rec.Product.Name.Equals(el.Name) &&
+                        rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year);
+
+                    if (!realizTrans.Any())
+                        continue;
+                    //if (!realizTrans.Any())
+                    //    throw new Exception("Не все товары представлены");
+
+                    var kolpi = (int)realizTrans.Sum(rec => rec.Count);
+                    var sumpi = realizTrans.Sum(rec => rec.Sum);
+
+                    var sum = ((sumfi / kolfi) - (sumpi / kolpi)) * kolfi;
+                    if (sum == 0)
+                        continue;
+
+                    TransactionLogStorage.Add(new TransactionLog
+                    {
+                        DebetId = coa90.Id,
+                        CreditId = coa43.Id,
+                        SudKontoD1 = coa90.Name,
+                        SubKontoK1 = coa43.Name,
+                        OperationLogId = log.Id,
+                        Data = dateTimePicker.Value,
+                        Count = null,
+                        Sum = sum
+                    });
+                }
             }
         }
 

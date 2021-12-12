@@ -30,7 +30,7 @@ namespace TIPIESProj.DataBase.Models
 
         public Division Division { get; set; }
 
-        public int Count { get; set; }
+        public int? Count { get; set; }
 
         public decimal Sum { get; set; }
 

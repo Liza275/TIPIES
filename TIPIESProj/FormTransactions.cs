@@ -17,20 +17,16 @@ namespace TIPIESProj
         public FormTransactions()
         {
             InitializeComponent();
+            dataGridView.DataSource = TransactionLogStorage.GetAllViewModels();
         }
 
-        private void LoadData(List<TransactionLogViewModel> data)
-        {
-            dataGridView.DataSource = data;
-        }
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             var form = new FormCreateTransaction();
             form.ShowDialog();
 
-            var transactions = TransactionLogStorage.GetAllViewModels();
-            LoadData(transactions);
+            dataGridView.DataSource = TransactionLogStorage.GetAllViewModels();
         }
 
         private void buttonOperation_Click(object sender, EventArgs e)
@@ -54,9 +50,8 @@ namespace TIPIESProj
                 return;
             }
 
-            var transactions = TransactionLogStorage.GetAllViewModels().Where(rec => rec.TransactionDate >= dateTimePickerFrom.Value &&
+            dataGridView.DataSource = TransactionLogStorage.GetAllViewModels().Where(rec => rec.TransactionDate >= dateTimePickerFrom.Value &&
                 rec.TransactionDate <= dateTimePickerTo.Value).ToList();
-            LoadData(transactions);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

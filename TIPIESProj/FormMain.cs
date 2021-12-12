@@ -45,5 +45,20 @@ namespace TIPIESProj
             var form = new FormTransactions();
             form.Show();
         }
+
+        private void отчетРаспределенияФактическихЗатратToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void отчетРасчетаОтклоненийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void отчетПродажПродукцииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
