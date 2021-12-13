@@ -86,7 +86,7 @@ namespace TIPIESProj.DataBase.Services
 
         public static void DeleteTransactions(int logId)
         {
-            foreach (var el in GetAll().Where(rec => rec.OperationLog != null && rec.OperationLog.Id == logId).Select(rec => rec.Id))
+            foreach (var el in GetAll().Where(rec => rec.OperationLogId == logId).Select(rec => rec.Id))
             {
                 Delete(el);
             }

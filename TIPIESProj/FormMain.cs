@@ -60,5 +60,10 @@ namespace TIPIESProj
         {
 
         }
+
+        private void отчётыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormReport().Show();
+        }
     }
 }

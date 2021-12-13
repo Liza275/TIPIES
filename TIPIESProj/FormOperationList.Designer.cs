@@ -35,12 +35,13 @@ namespace TIPIESProj
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonShow = new System.Windows.Forms.Button();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.datePickerFrom = new System.Windows.Forms.DateTimePicker();
-            this.datePickerTo = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxOperationType = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxOperationType = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.datePickerTo = new System.Windows.Forms.DateTimePicker();
+            this.datePickerFrom = new System.Windows.Forms.DateTimePicker();
+            this.buttonShowTrans = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridOperations)).BeginInit();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
@@ -110,28 +111,22 @@ namespace TIPIESProj
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Фильтр";
             // 
-            // datePickerFrom
+            // label3
             // 
-            this.datePickerFrom.Location = new System.Drawing.Point(32, 20);
-            this.datePickerFrom.Name = "datePickerFrom";
-            this.datePickerFrom.Size = new System.Drawing.Size(148, 20);
-            this.datePickerFrom.TabIndex = 5;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(54, 88);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(77, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Тип операции";
             // 
-            // datePickerTo
+            // comboBoxOperationType
             // 
-            this.datePickerTo.Location = new System.Drawing.Point(32, 46);
-            this.datePickerTo.Name = "datePickerTo";
-            this.datePickerTo.Size = new System.Drawing.Size(148, 20);
-            this.datePickerTo.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "С";
+            this.comboBoxOperationType.FormattingEnabled = true;
+            this.comboBoxOperationType.Location = new System.Drawing.Point(7, 104);
+            this.comboBoxOperationType.Name = "comboBoxOperationType";
+            this.comboBoxOperationType.Size = new System.Drawing.Size(173, 21);
+            this.comboBoxOperationType.TabIndex = 9;
             // 
             // label2
             // 
@@ -142,28 +137,45 @@ namespace TIPIESProj
             this.label2.TabIndex = 8;
             this.label2.Text = "По";
             // 
-            // comboBoxOperationType
+            // label1
             // 
-            this.comboBoxOperationType.FormattingEnabled = true;
-            this.comboBoxOperationType.Location = new System.Drawing.Point(7, 104);
-            this.comboBoxOperationType.Name = "comboBoxOperationType";
-            this.comboBoxOperationType.Size = new System.Drawing.Size(173, 21);
-            this.comboBoxOperationType.TabIndex = 9;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(14, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "С";
             // 
-            // label3
+            // datePickerTo
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Тип операции";
+            this.datePickerTo.Location = new System.Drawing.Point(32, 46);
+            this.datePickerTo.Name = "datePickerTo";
+            this.datePickerTo.Size = new System.Drawing.Size(148, 20);
+            this.datePickerTo.TabIndex = 6;
+            // 
+            // datePickerFrom
+            // 
+            this.datePickerFrom.Location = new System.Drawing.Point(32, 20);
+            this.datePickerFrom.Name = "datePickerFrom";
+            this.datePickerFrom.Size = new System.Drawing.Size(148, 20);
+            this.datePickerFrom.TabIndex = 5;
+            // 
+            // buttonShowTrans
+            // 
+            this.buttonShowTrans.Location = new System.Drawing.Point(806, 99);
+            this.buttonShowTrans.Name = "buttonShowTrans";
+            this.buttonShowTrans.Size = new System.Drawing.Size(186, 23);
+            this.buttonShowTrans.TabIndex = 6;
+            this.buttonShowTrans.Text = "К проводке";
+            this.buttonShowTrans.UseVisualStyleBackColor = true;
+            this.buttonShowTrans.Click += new System.EventHandler(this.buttonShowTrans_Click);
             // 
             // FormOperationList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(998, 450);
+            this.Controls.Add(this.buttonShowTrans);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
@@ -192,5 +204,6 @@ namespace TIPIESProj
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker datePickerTo;
         private System.Windows.Forms.DateTimePicker datePickerFrom;
+        private System.Windows.Forms.Button buttonShowTrans;
     }
 }

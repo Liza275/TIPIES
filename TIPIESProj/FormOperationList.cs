@@ -68,5 +68,17 @@ namespace TIPIESProj
 
             gridOperations.DataSource = OperationLogStorage.GetFilteredView(filter);
         }
+
+        private void buttonShowTrans_Click(object sender, EventArgs e)
+        {
+            int id = (int)gridOperations.SelectedRows[0].Cells[0].Value;
+
+            //var model = new TransactionLogBindingModel { Id = id };
+            //var transactions = TransactionLogStorage.GetAll().Where(rec => rec.OperationLogId == id).ToList();
+
+            var form = new FormOperationTransactions();
+            form.Id = id;
+            form.ShowDialog();
+        }
     }
 }

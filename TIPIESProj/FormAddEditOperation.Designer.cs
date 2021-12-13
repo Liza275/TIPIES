@@ -45,6 +45,8 @@ namespace TIPIESProj
             this.label7 = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxCost = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +86,7 @@ namespace TIPIESProj
             // 
             // numericCount
             // 
-            this.numericCount.Location = new System.Drawing.Point(115, 158);
+            this.numericCount.Location = new System.Drawing.Point(115, 196);
             this.numericCount.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -98,7 +100,7 @@ namespace TIPIESProj
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 160);
+            this.label3.Location = new System.Drawing.Point(33, 198);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 5;
@@ -106,7 +108,7 @@ namespace TIPIESProj
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(115, 203);
+            this.textBoxSum.Location = new System.Drawing.Point(115, 241);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.Size = new System.Drawing.Size(138, 20);
             this.textBoxSum.TabIndex = 6;
@@ -114,7 +116,7 @@ namespace TIPIESProj
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(58, 206);
+            this.label4.Location = new System.Drawing.Point(58, 244);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 7;
@@ -123,7 +125,7 @@ namespace TIPIESProj
             // comboBoxDivision
             // 
             this.comboBoxDivision.FormattingEnabled = true;
-            this.comboBoxDivision.Location = new System.Drawing.Point(115, 248);
+            this.comboBoxDivision.Location = new System.Drawing.Point(115, 283);
             this.comboBoxDivision.Name = "comboBoxDivision";
             this.comboBoxDivision.Size = new System.Drawing.Size(282, 21);
             this.comboBoxDivision.TabIndex = 8;
@@ -131,7 +133,7 @@ namespace TIPIESProj
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 251);
+            this.label5.Location = new System.Drawing.Point(12, 286);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 9;
@@ -158,7 +160,7 @@ namespace TIPIESProj
             // comboBoxBuyer
             // 
             this.comboBoxBuyer.FormattingEnabled = true;
-            this.comboBoxBuyer.Location = new System.Drawing.Point(115, 298);
+            this.comboBoxBuyer.Location = new System.Drawing.Point(115, 333);
             this.comboBoxBuyer.Name = "comboBoxBuyer";
             this.comboBoxBuyer.Size = new System.Drawing.Size(282, 21);
             this.comboBoxBuyer.TabIndex = 12;
@@ -166,7 +168,7 @@ namespace TIPIESProj
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(32, 301);
+            this.label7.Location = new System.Drawing.Point(32, 336);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 13;
@@ -192,11 +194,30 @@ namespace TIPIESProj
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 162);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(92, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Продажная цена";
+            // 
+            // textBoxCost
+            // 
+            this.textBoxCost.Location = new System.Drawing.Point(115, 159);
+            this.textBoxCost.Name = "textBoxCost";
+            this.textBoxCost.Size = new System.Drawing.Size(138, 20);
+            this.textBoxCost.TabIndex = 17;
+            this.textBoxCost.TextChanged += new System.EventHandler(this.textBoxCost_TextChanged);
+            // 
             // FormAddEditOperation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 466);
+            this.Controls.Add(this.textBoxCost);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.label7);
@@ -239,5 +260,7 @@ namespace TIPIESProj
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxCost;
     }
 }

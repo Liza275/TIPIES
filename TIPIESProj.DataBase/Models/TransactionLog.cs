@@ -6,8 +6,6 @@ namespace TIPIESProj.DataBase.Models
     {
         public int Id { get; set; }
 
-        public int OperationLogId { get; set; }
-
         public DateTime Data { get; set; }
 
         public string SudKontoD1 { get; set; }
@@ -34,6 +32,8 @@ namespace TIPIESProj.DataBase.Models
 
         public decimal Sum { get; set; }
 
-        public virtual OperationLog OperationLog { get; set; }
+        public int OperationLogId { get; set; }
+
+        public OperationLog OperationLog { get; set; }
     }
 }

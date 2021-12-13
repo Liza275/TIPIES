@@ -20,7 +20,7 @@ namespace TIPIESProj.DataBase.Models
         [Required]
         public decimal Sum { get; set; }
 
-        [ForeignKey("TransactionLogId")]
+        [ForeignKey("OperationLogId")]
         public virtual List<TransactionLog> TransactionLog { get; set; }
 
         //[ForeignKey("DivisionId")]

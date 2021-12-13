@@ -106,12 +106,21 @@ namespace TIPIESProj
                     {
                         return "Уже существует распределение за указанный месяц";
                     }
+
+                    var provodka = OperationLogStorage.GetAll().FirstOrDefault(rec => rec.Type.Equals("Накопление фактических коммерческих расходов за месяц") &&
+                                rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year);
+                    if (provodka == null)
+                    {
+                        return "Не найдены проводки 20-10";
+                    }
+
                     break;
 
                 case "Реализация готовой продукции":
                     var operations = OperationLogStorage.GetAll().Where(rec => rec.ProductId == (int)comboBoxProduct.SelectedValue);
                     var addedBefore = operations
-                                      .Where(rec => rec.Type.Equals("Поступления готовой продукции") && rec.Data.Date <= dateTimePicker.Value.Date)
+                                      .Where(rec => rec.Type.Equals("Поступления готовой продукции") &&
+                                          rec.Data.Date <= dateTimePicker.Value.Date)
                                       .Sum(rec => rec.Count);
 
                     var deletedBefore = operations
@@ -199,6 +208,7 @@ namespace TIPIESProj
                     comboBoxProduct.Enabled = true;
                     textBoxSum.Enabled = true;
                     numericCount.Enabled = true;
+                    textBoxCost.Enabled = false;
                     break;
 
                 case "Распределение фактической себестоимости по выпущенной продукции":
@@ -206,6 +216,7 @@ namespace TIPIESProj
                     comboBoxProduct.Enabled = false;
                     textBoxSum.Enabled = false;
                     numericCount.Enabled = false;
+                    textBoxCost.Enabled = false;
                     break;
 
                 case "Реализация готовой продукции":
@@ -213,6 +224,7 @@ namespace TIPIESProj
                     comboBoxProduct.Enabled = true;
                     textBoxSum.Enabled = true;
                     numericCount.Enabled = true;
+                    textBoxCost.Enabled = true;
                     break;
 
                 case "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи":
@@ -220,6 +232,7 @@ namespace TIPIESProj
                     comboBoxProduct.Enabled = false;
                     textBoxSum.Enabled = false;
                     numericCount.Enabled = false;
+                    textBoxCost.Enabled = false;
                     break;
             }
         }
@@ -257,7 +270,7 @@ namespace TIPIESProj
                             rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year)
                         .Sum(rec => rec.Sum);
                 var spiSum = transactions
-                    .Where(rec => rec.OperationLog!=null && rec.OperationLog.Type.Equals("Поступления готовой продукции") &&
+                    .Where(rec => rec.OperationLog != null && rec.OperationLog.Type.Equals("Поступления готовой продукции") &&
                         rec.Data.Month == dateTimePicker.Value.Month && rec.Data.Year == dateTimePicker.Value.Year).Sum(rec => rec.Sum);
 
                 foreach (var el in ProductStorage.GetAll())
@@ -303,7 +316,7 @@ namespace TIPIESProj
                     Data = dateTimePicker.Value,
                     Count = log.Count,
                     ProductId = product.Id,
-                    Sum = log.Count * product.PlannedCostPrice
+                    Sum = textBoxSum.Enabled ? decimal.Parse(textBoxSum.Text) : 0
                 });
 
                 TransactionLogStorage.Add(new TransactionLog
@@ -382,10 +395,36 @@ namespace TIPIESProj
         {
             if (isLoaded && comboBoxProduct.SelectedIndex != -1)
             {
-                var product = ProductStorage.Get((int)comboBoxProduct.SelectedValue);
-                if (product != null)
+                if (decimal.TryParse(textBoxCost.Text.Replace(',', '.'), out decimal newPrice))
                 {
-                    textBoxSum.Text = Math.Round((numericCount.Value * product.PlannedCostPrice), 4).ToString();
+                    textBoxSum.Text = Math.Round((numericCount.Value * newPrice), 4).ToString();
+                }
+                else
+                {
+                    var product = ProductStorage.Get((int)comboBoxProduct.SelectedValue);
+                    if (product != null)
+                    {
+                        textBoxSum.Text = Math.Round((numericCount.Value * product.PlannedCostPrice), 4).ToString();
+                    }
+                }
+            }
+        }
+
+        private void textBoxCost_TextChanged(object sender, EventArgs e)
+        {
+            if (isLoaded && comboBoxProduct.SelectedIndex != -1)
+            {
+                if (decimal.TryParse(textBoxCost.Text.Replace(',', '.'), out decimal newPrice))
+                {
+                    textBoxSum.Text = Math.Round((numericCount.Value * newPrice), 4).ToString();
+                }
+                else
+                {
+                    var product = ProductStorage.Get((int)comboBoxProduct.SelectedValue);
+                    if (product != null)
+                    {
+                        textBoxSum.Text = Math.Round((numericCount.Value * product.PlannedCostPrice), 4).ToString();
+                    }
                 }
             }
         }

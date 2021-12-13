@@ -17,7 +17,8 @@ namespace TIPIESProj
         public FormCreateTransaction()
         {
             InitializeComponent();
-            comboBoxExpense.DataSource = CharOfAccountsStorage.GetAll().Where(rec => rec.Name.Equals("Учет затрат на выпуск продукции")).ToList();
+            //comboBoxExpense.DataSource = CharOfAccountsStorage.GetAll().Where(rec => rec.Name.Equals("Учет затрат на выпуск продукции")).ToList();
+            comboBoxExpense.DataSource = DivisionsStorage.GetAll().ToList();
             comboBoxExpense.ValueMember = "Id";
             comboBoxExpense.DisplayMember = "Name";
         }
@@ -37,13 +38,14 @@ namespace TIPIESProj
             var transaction = new TransactionLog
             {
                 DebetId = coa20.Id,
-                SudKontoD1 = coa20.Name,
+                SudKontoD1 = DivisionsStorage.Get((int)comboBoxExpense.SelectedValue).Name,
                 CreditId = coa10.Id,
                 SubKontoK1 = coa10.Name,
+                DivisionId = (int)comboBoxExpense.SelectedValue,
                 Data = dateTimePicker.Value,
                 Count = 1,
                 Sum = numericUpDownSum.Value,
-                OperationLogId= OperationLogStorage.LastAddedId
+                OperationLogId = OperationLogStorage.LastAddedId
             };
 
             TransactionLogStorage.Add(transaction);

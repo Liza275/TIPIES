@@ -35,6 +35,11 @@ namespace TIPIESProj.DataBase.Services
         //Если не было поступления, то не можем сделать остальные операции
         private static string CanAdd(OperationLog ol)
         {
+            if (ol.Type.Equals("Накопление фактических коммерческих расходов за месяц"))
+            {
+                return string.Empty;
+            }
+
             var all = GetAll();
             if (!ol.Type.Equals(GetTypeString(OperationTypes.Postyp))
                 && all.FirstOrDefault(rec => IsDate(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Postyp))) == null)
@@ -120,26 +125,27 @@ namespace TIPIESProj.DataBase.Services
         {
             var all = GetAll();
             //Если была реализация, то мы не можем изменить поступление и распределение
-            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) || ol.Type.Equals(GetTypeString(OperationTypes.Raspr)))
+            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) || ol.Type.Equals(GetTypeString(OperationTypes.Raspr))
+                || ol.Type.Equals(GetTypeString(OperationTypes.Fact)))
             {
                 if (all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Realization))) != null)
                 {
-                    return "Если была реализация, то мы не можем изменить поступление и распределение";
+                    return "Если была реализация, то мы не можем изменить поступление, распределение и факт.";
                 }
             }
 
             //Если было распределение, то изменить поступление нельзя
-            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) &&
+            if ((ol.Type.Equals(GetTypeString(OperationTypes.Postyp))|| ol.Type.Equals(GetTypeString(OperationTypes.Fact))) &&
                 all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Raspr))) != null)
             {
-                return "Если было распределение, то изменить поступление нельзя";
+                return "Если было распределение, то изменить поступление или факт. нельзя";
             }
 
             //Если было списание, то поступление, реализация и распределение редактировать нельзя
             if (!ol.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii)) &&
                all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii))) != null)
             {
-                return "Если было списание, то поступление, реализация и распределение редактировать нельзя";
+                return "Если было списание, то поступление, факт., реализация и распределение редактировать нельзя";
             }
 
             return string.Empty;
@@ -176,17 +182,17 @@ namespace TIPIESProj.DataBase.Services
         private static string CanDelete(OperationLog ol)
         {
             var all = GetAll();
-            //Если было распределение, то поступление удалять нельзя
-            if (ol.Type.Equals(GetTypeString(OperationTypes.Postyp)) &&
+            //Если было распределение, то поступление и факт удалять нельзя
+            if ((ol.Type.Equals(GetTypeString(OperationTypes.Postyp))|| ol.Type.Equals(GetTypeString(OperationTypes.Fact))) &&
                 all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.Raspr))) != null)
             {
-                return "Если было распределение, то поступление удалять нельзя";
+                return "Если было распределение, то поступление и факт. удалять нельзя";
             }
             //Если было списание, то реализацию, поступление и распределение удалять нельзя
             if (!ol.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii)) &&
                 all.FirstOrDefault(rec => DataCheck(ol.Data, rec.Data) && rec.Type.Equals(GetTypeString(OperationTypes.SpisanieOtlonenii))) != null)
             {
-                return "Если было списание, то реализацию, поступление и распределение удалять нельзя";
+                return "Если было списание, то реализацию, факт., поступление и распределение удалять нельзя";
             }
 
             return string.Empty;
@@ -290,6 +296,8 @@ namespace TIPIESProj.DataBase.Services
                     return "Распределение фактической себестоимости по выпущенной продукции";
                 case OperationTypes.Realization:
                     return "Реализация готовой продукции";
+                case OperationTypes.Fact:
+                    return "Накопление фактических коммерческих расходов за месяц";
                 default:
                     return "Списание отлонений от фактической себестоимости реализованной продукции на расходы от продажи";
             }

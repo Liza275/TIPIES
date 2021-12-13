@@ -27,7 +27,7 @@ namespace TIPIESProj
             var operation = OperationLogStorage.Get(Id.Value);
 
             labelName.Text = operation.Type;
-            labelDivision.Text = operation.Division.Name;
+            labelDivision.Text = operation.Division == null ? "" : operation.Division.Name;
             labelDate.Text = operation.Data.ToShortDateString();
             labelCode.Text = operation.Id.ToString();
             labelCount.Text = operation.Count.ToString();

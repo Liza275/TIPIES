@@ -38,9 +38,6 @@ namespace TIPIESProj
             this.журналОперациToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.журналПроводокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отчетПродажПродукцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отчетРасчетаОтклоненийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отчетРаспределенияФактическихЗатратToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,34 +111,10 @@ namespace TIPIESProj
             // 
             // отчётыToolStripMenuItem
             // 
-            this.отчётыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отчетПродажПродукцииToolStripMenuItem,
-            this.отчетРасчетаОтклоненийToolStripMenuItem,
-            this.отчетРаспределенияФактическихЗатратToolStripMenuItem});
             this.отчётыToolStripMenuItem.Name = "отчётыToolStripMenuItem";
             this.отчётыToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.отчётыToolStripMenuItem.Text = "Отчёты";
-            // 
-            // отчетПродажПродукцииToolStripMenuItem
-            // 
-            this.отчетПродажПродукцииToolStripMenuItem.Name = "отчетПродажПродукцииToolStripMenuItem";
-            this.отчетПродажПродукцииToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
-            this.отчетПродажПродукцииToolStripMenuItem.Text = "Отчет продаж продукции";
-            this.отчетПродажПродукцииToolStripMenuItem.Click += new System.EventHandler(this.отчетПродажПродукцииToolStripMenuItem_Click);
-            // 
-            // отчетРасчетаОтклоненийToolStripMenuItem
-            // 
-            this.отчетРасчетаОтклоненийToolStripMenuItem.Name = "отчетРасчетаОтклоненийToolStripMenuItem";
-            this.отчетРасчетаОтклоненийToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
-            this.отчетРасчетаОтклоненийToolStripMenuItem.Text = "Отчет расчета отклонений";
-            this.отчетРасчетаОтклоненийToolStripMenuItem.Click += new System.EventHandler(this.отчетРасчетаОтклоненийToolStripMenuItem_Click);
-            // 
-            // отчетРаспределенияФактическихЗатратToolStripMenuItem
-            // 
-            this.отчетРаспределенияФактическихЗатратToolStripMenuItem.Name = "отчетРаспределенияФактическихЗатратToolStripMenuItem";
-            this.отчетРаспределенияФактическихЗатратToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
-            this.отчетРаспределенияФактическихЗатратToolStripMenuItem.Text = "Отчет распределения фактических затрат";
-            this.отчетРаспределенияФактическихЗатратToolStripMenuItem.Click += new System.EventHandler(this.отчетРаспределенияФактическихЗатратToolStripMenuItem_Click);
+            this.отчётыToolStripMenuItem.Click += new System.EventHandler(this.отчётыToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -171,8 +144,5 @@ namespace TIPIESProj
         private System.Windows.Forms.ToolStripMenuItem журналОперациToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem журналПроводокToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчётыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отчетПродажПродукцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отчетРасчетаОтклоненийToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отчетРаспределенияФактическихЗатратToolStripMenuItem;
     }
 }
