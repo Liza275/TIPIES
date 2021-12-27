@@ -46,6 +46,7 @@ namespace TIPIESProj
             this.labelTotal1 = new System.Windows.Forms.Label();
             this.labelTotal2 = new System.Windows.Forms.Label();
             this.labelTotal3 = new System.Windows.Forms.Label();
+            this.buttonAnalyze = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -149,7 +150,7 @@ namespace TIPIESProj
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridView1.Location = new System.Drawing.Point(12, 153);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(994, 280);
+            this.dataGridView1.Size = new System.Drawing.Size(1524, 411);
             this.dataGridView1.TabIndex = 11;
             // 
             // buttonDownload
@@ -160,11 +161,12 @@ namespace TIPIESProj
             this.buttonDownload.TabIndex = 12;
             this.buttonDownload.Text = "Скачать";
             this.buttonDownload.UseVisualStyleBackColor = true;
+            this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 447);
+            this.label7.Location = new System.Drawing.Point(12, 580);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(37, 13);
             this.label7.TabIndex = 13;
@@ -173,7 +175,7 @@ namespace TIPIESProj
             // labelTotal1
             // 
             this.labelTotal1.AutoSize = true;
-            this.labelTotal1.Location = new System.Drawing.Point(65, 447);
+            this.labelTotal1.Location = new System.Drawing.Point(65, 580);
             this.labelTotal1.Name = "labelTotal1";
             this.labelTotal1.Size = new System.Drawing.Size(0, 13);
             this.labelTotal1.TabIndex = 14;
@@ -181,7 +183,7 @@ namespace TIPIESProj
             // labelTotal2
             // 
             this.labelTotal2.AutoSize = true;
-            this.labelTotal2.Location = new System.Drawing.Point(164, 447);
+            this.labelTotal2.Location = new System.Drawing.Point(164, 580);
             this.labelTotal2.Name = "labelTotal2";
             this.labelTotal2.Size = new System.Drawing.Size(0, 13);
             this.labelTotal2.TabIndex = 15;
@@ -189,16 +191,27 @@ namespace TIPIESProj
             // labelTotal3
             // 
             this.labelTotal3.AutoSize = true;
-            this.labelTotal3.Location = new System.Drawing.Point(293, 447);
+            this.labelTotal3.Location = new System.Drawing.Point(293, 580);
             this.labelTotal3.Name = "labelTotal3";
             this.labelTotal3.Size = new System.Drawing.Size(0, 13);
             this.labelTotal3.TabIndex = 16;
+            // 
+            // buttonAnalyze
+            // 
+            this.buttonAnalyze.Location = new System.Drawing.Point(831, 108);
+            this.buttonAnalyze.Name = "buttonAnalyze";
+            this.buttonAnalyze.Size = new System.Drawing.Size(125, 29);
+            this.buttonAnalyze.TabIndex = 17;
+            this.buttonAnalyze.Text = "Анализ";
+            this.buttonAnalyze.UseVisualStyleBackColor = true;
+            this.buttonAnalyze.Click += new System.EventHandler(this.buttonAnalyze_Click);
             // 
             // FormReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1018, 481);
+            this.ClientSize = new System.Drawing.Size(1548, 602);
+            this.Controls.Add(this.buttonAnalyze);
             this.Controls.Add(this.labelTotal3);
             this.Controls.Add(this.labelTotal2);
             this.Controls.Add(this.labelTotal1);
@@ -217,7 +230,7 @@ namespace TIPIESProj
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormReport";
-            this.Text = "FormReport";
+            this.Text = "Отчеты";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -243,5 +256,6 @@ namespace TIPIESProj
         private System.Windows.Forms.Label labelTotal1;
         private System.Windows.Forms.Label labelTotal2;
         private System.Windows.Forms.Label labelTotal3;
+        private System.Windows.Forms.Button buttonAnalyze;
     }
 }

@@ -106,7 +106,7 @@ namespace TIPIESProj
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(503, 91);
+            this.label7.Location = new System.Drawing.Point(975, 89);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 15);
             this.label7.TabIndex = 8;
@@ -116,7 +116,7 @@ namespace TIPIESProj
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(503, 56);
+            this.label8.Location = new System.Drawing.Point(975, 54);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 15);
             this.label8.TabIndex = 7;
@@ -126,7 +126,7 @@ namespace TIPIESProj
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(503, 25);
+            this.label9.Location = new System.Drawing.Point(975, 23);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 15);
             this.label9.TabIndex = 6;
@@ -135,7 +135,7 @@ namespace TIPIESProj
             // labelSum
             // 
             this.labelSum.AutoSize = true;
-            this.labelSum.Location = new System.Drawing.Point(590, 91);
+            this.labelSum.Location = new System.Drawing.Point(1062, 89);
             this.labelSum.Name = "labelSum";
             this.labelSum.Size = new System.Drawing.Size(41, 13);
             this.labelSum.TabIndex = 11;
@@ -144,7 +144,7 @@ namespace TIPIESProj
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(590, 56);
+            this.labelCount.Location = new System.Drawing.Point(1062, 54);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(41, 13);
             this.labelCount.TabIndex = 10;
@@ -153,7 +153,7 @@ namespace TIPIESProj
             // labelCode
             // 
             this.labelCode.AutoSize = true;
-            this.labelCode.Location = new System.Drawing.Point(590, 25);
+            this.labelCode.Location = new System.Drawing.Point(1062, 23);
             this.labelCode.Name = "labelCode";
             this.labelCode.Size = new System.Drawing.Size(41, 13);
             this.labelCode.TabIndex = 9;
@@ -166,14 +166,14 @@ namespace TIPIESProj
             this.dataGridView.Location = new System.Drawing.Point(10, 131);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 25;
-            this.dataGridView.Size = new System.Drawing.Size(807, 249);
+            this.dataGridView.Size = new System.Drawing.Size(1210, 249);
             this.dataGridView.TabIndex = 12;
             // 
             // FormOperationTransactions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 390);
+            this.ClientSize = new System.Drawing.Size(1232, 390);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.labelSum);
             this.Controls.Add(this.labelCount);

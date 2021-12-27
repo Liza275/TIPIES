@@ -100,7 +100,7 @@ namespace TIPIESProj.DataBase.Services
                 TransactionDate = transactionLog.Data,
                 SubkontoDebet = transactionLog.SudKontoD1,
                 SubkontoCredit = transactionLog.SubKontoK1,
-                Count = transactionLog.Count,
+                Count = transactionLog.Count == null || transactionLog.Count == 0 ? 1 : transactionLog.Count,
                 Sum = transactionLog.Sum,
                 Debet = transactionLog.Debet.AccountNumber,
                 Credit = transactionLog.Credit.AccountNumber,

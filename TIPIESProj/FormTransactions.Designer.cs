@@ -47,7 +47,7 @@ namespace TIPIESProj
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 25;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(826, 311);
+            this.dataGridView.Size = new System.Drawing.Size(1494, 517);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonOperation
@@ -108,7 +108,7 @@ namespace TIPIESProj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(848, 379);
+            this.ClientSize = new System.Drawing.Size(1516, 586);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this.dateTimePickerTo);
